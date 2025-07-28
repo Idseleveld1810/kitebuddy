@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #f5f5f5;
+}
+
+.forecast .card {
+  background: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.forecast .card.good {
+  border: 2px solid green;
+}
+
+.arrow {
+  display: inline-block;
+  transform: rotate(0deg);
+  font-size: 1.2rem;
+  margin-left: 4px;
+}
+
+.details-table {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.details-table th,
+.details-table td {
+  border: 1px solid #ccc;
+  padding: 0.25rem;
+  text-align: center;
+}
+
+.details-table th {
+  background: #eee;
+}
