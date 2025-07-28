@@ -9,7 +9,7 @@
   "dependencies": {
     "astro": "^4.0.0",
     "@astrojs/react": "^4.0.0",
-    "@astrojs/tailwind": "^4.0.0",
+    "@astrojs/tailwind": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "leaflet": "^1.9.4",
