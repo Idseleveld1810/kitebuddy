@@ -6,6 +6,7 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  Legend,
 } from 'recharts';
 
 const WindChart = ({ data }) => {
@@ -18,14 +19,26 @@ const WindChart = ({ data }) => {
           <XAxis dataKey="time" />
           <YAxis />
           <Tooltip />
-          <Line type="monotone" dataKey="speed" stroke="#3B82F6" name="Wind" />
+          <Legend />
+          <Line type="monotone" dataKey="speed" stroke="#3B82F6" name="Wind (kn)" strokeWidth={2} />
           <Line
             type="monotone"
             dataKey="gust"
             stroke="#10B981"
-            name="Vlagen"
+            name="Vlagen (kn)"
             strokeDasharray="4 4"
+            strokeWidth={2}
           />
+          {data[0]?.waveHeight !== undefined && (
+            <Line
+              type="monotone"
+              dataKey="waveHeight"
+              stroke="#8B5CF6"
+              name="Golven (m)"
+              strokeWidth={2}
+              strokeDasharray="2 2"
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
     </div>
