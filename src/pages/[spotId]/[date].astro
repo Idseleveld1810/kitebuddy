@@ -1,15 +1,16 @@
 ---
 import WindChart from "../../components/WindChart.jsx";
 import spots from "../../data/spots_with_wind_top50.json";
-import { Astro } from "astro";
+import fs from 'fs';
+import path from 'path';
 
-// ✅ Generate all combinations of spotId and date
+// ✅ Generate all combinations of spotId and date for the next 14 days
 export async function getStaticPaths() {
   const today = new Date();
   const paths = [];
 
   for (const spot of spots) {
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 14; i++) { // Generate 14 days instead of 7
       const d = new Date(today);
       d.setDate(d.getDate() + i);
       const date = d.toISOString().split("T")[0];
@@ -22,10 +23,24 @@ export async function getStaticPaths() {
 
 const { spotId, date } = Astro.params;
 
-const forecastData = await fetch(`/data/forecastData/${spotId}.json`)
-  .then(res => res.json())
-  .catch(() => []);
+// Load forecast data from file system
+let forecastData = {};
+try {
+  const forecastPath = path.join(process.cwd(), 'public', 'data', 'forecastData', `${spotId}.json`);
+  console.log(`Reading forecast data for details page: ${forecastPath}`);
+  
+  if (fs.existsSync(forecastPath)) {
+    const fileContent = fs.readFileSync(forecastPath, 'utf8');
+    forecastData = JSON.parse(fileContent);
+    console.log(`Loaded forecast data for ${spotId} details:`, Object.keys(forecastData));
+  } else {
+    console.error(`Forecast file not found for details: ${forecastPath}`);
+  }
+} catch (err) {
+  console.error(`Error loading forecast data for ${spotId} details:`, err);
+}
 
+// Parse the date and determine which day of the week it is
 const dateObj = new Date(date);
 const dayName = ['zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'][dateObj.getDay()];
 const shortDate = dateObj.toLocaleDateString("nl-NL", { day: 'numeric', month: 'short' });
@@ -34,52 +49,70 @@ const data = forecastData[dayName] || [];
 
 <html lang="nl">
   <head>
+    <style is:global>
+      @import "../../styles/global.css";
+    </style>
     <meta charset="UTF-8" />
     <title>Kitebuddy - {spotId} - {shortDate}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body class="bg-amber-50 font-sans text-gray-800 min-h-screen">
-    <h1 class="text-white text-3xl text-center bg-cyan-700 p-4">
-      Kitesurf voorspelling – {spotId} – {dayName} {shortDate}
-    </h1>
+    <header class="bg-cyan-700 text-white text-center p-4">
+      <h1 class="text-2xl md:text-3xl font-semibold">
+        Kitesurf voorspelling – {spotId} – {dayName} {shortDate}
+      </h1>
+      <a href="/{spotId}" class="text-sm text-cyan-200 hover:text-white mt-2 inline-block">
+        ← Terug naar overzicht
+      </a>
+    </header>
 
     <div class="max-w-3xl mx-auto p-4 space-y-4">
-      <WindChart client:only="react" data={data} />
+      {data.length > 0 ? (
+        <>
+          <WindChart client:only="react" data={data} />
 
-      <table class="w-full mt-6 text-sm bg-white rounded-xl shadow border border-cyan-100">
-        <thead class="bg-cyan-100 text-gray-600">
-          <tr>
-            <th class="px-4 py-2 text-left">Tijd</th>
-            <th class="px-4 py-2 text-left">Wind (kn)</th>
-            <th class="px-4 py-2 text-left">Vlagen (kn)</th>
-            <th class="px-4 py-2 text-left">Richting</th>
-            <th class="px-4 py-2 text-left">Regen (mm)</th>
-            <th class="px-4 py-2 text-left">Stroming</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(entry => (
-            <tr class="border-t">
-              <td class="px-4 py-1">{entry.time}</td>
-              <td class="px-4 py-1">
-                <span class={entry.speed >= 19 ? "text-green-500 font-semibold" : entry.speed >= 13 ? "text-blue-500" : "text-cyan-300"}>
-                  {entry.speed}
-                </span>
-              </td>
-              <td class="px-4 py-1">
-                <span class={entry.gust >= 45 ? "text-red-500 font-bold" : entry.gust >= 35 ? "text-orange-500 font-semibold" : entry.gust >= 25 ? "text-green-500" : "text-blue-400"}>
-                  {entry.gust}
-                </span>
-              </td>
-              <td class="px-4 py-1 flex items-center gap-2">
-                <span style={`transform: rotate(${entry.dir + 180}deg)`} class="block">↑</span>
-                {entry.dir}&deg;
-              </td>
-              <td class="px-4 py-1 text-indigo-500">{entry.rain}</td>
-              <td class="px-4 py-1 text-gray-400 italic">?</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <table class="w-full mt-6 text-sm bg-white rounded-xl shadow border border-cyan-100">
+            <thead class="bg-cyan-100 text-gray-600">
+              <tr>
+                <th class="px-4 py-2 text-left">Tijd</th>
+                <th class="px-4 py-2 text-left">Wind (kn)</th>
+                <th class="px-4 py-2 text-left">Vlagen (kn)</th>
+                <th class="px-4 py-2 text-left">Richting</th>
+                <th class="px-4 py-2 text-left">Regen (mm)</th>
+                <th class="px-4 py-2 text-left">Stroming</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map(entry => (
+                <tr class="border-t">
+                  <td class="px-4 py-1">{entry.time}</td>
+                  <td class="px-4 py-1">
+                    <span class={entry.speed >= 19 ? "text-green-500 font-semibold" : entry.speed >= 13 ? "text-blue-500" : "text-cyan-300"}>
+                      {entry.speed}
+                    </span>
+                  </td>
+                  <td class="px-4 py-1">
+                    <span class={entry.gust >= 45 ? "text-red-500 font-bold" : entry.gust >= 35 ? "text-orange-500 font-semibold" : entry.gust >= 25 ? "text-green-500" : "text-blue-400"}>
+                      {entry.gust}
+                    </span>
+                  </td>
+                  <td class="px-4 py-1 flex items-center gap-2">
+                    <span style={`transform: rotate(${entry.dir + 180}deg)`} class="block">↑</span>
+                    {entry.dir}&deg;
+                  </td>
+                  <td class="px-4 py-1 text-indigo-500">{entry.rain}</td>
+                  <td class="px-4 py-1 text-gray-400 italic">?</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      ) : (
+        <div class="text-center py-8">
+          <p class="text-gray-600">Geen forecast data beschikbaar voor {spotId} op {shortDate}</p>
+          <p class="text-sm text-gray-500 mt-2">Controleer of het bestand /data/forecastData/{spotId}.json bestaat</p>
+        </div>
+      )}
     </div>
   </body>
 </html>
