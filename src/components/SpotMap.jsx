@@ -23,20 +23,33 @@ export default function SpotMap() {
   useEffect(() => {
     if (!mapRef.current || spots.length === 0) return;
 
+    // Clear existing markers
+    mapRef.current.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        mapRef.current.removeLayer(layer);
+      }
+    });
+
     spots.forEach((spot) => {
       const marker = L.marker([spot.latitude, spot.longitude])
         .addTo(mapRef.current)
         .bindPopup(
-          `<b>${spot.name}</b><br/><button id="goto-${spot.spotId}">Bekijk spot</button>`
+          `<b>${spot.name}</b><br/><button id="goto-${spot.spotId}" class="spot-button">Bekijk spot</button>`
         );
 
+      // Use a more reliable approach for handling popup button clicks
       marker.on("popupopen", () => {
-        const button = document.getElementById(`goto-${spot.spotId}`);
-        if (button) {
-          button.addEventListener("click", () => {
-            window.location.href = `/${spot.spotId}`;
-          });
-        }
+        setTimeout(() => {
+          const button = document.getElementById(`goto-${spot.spotId}`);
+          if (button) {
+            button.addEventListener("click", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log(`Navigating to spot: ${spot.spotId}`);
+              window.location.href = `/${spot.spotId}`;
+            });
+          }
+        }, 100);
       });
     });
   }, [spots]);
