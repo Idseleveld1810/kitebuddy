@@ -1,0 +1,634 @@
+[
+  {
+    "spotId": "wijk_aan_zee",
+    "name": "Wijk aan Zee",
+    "latitude": 52.495,
+    "longitude": 4.563,
+    "province": "Noord-Holland",
+    "coast_orientation": 191.1,
+    "ideal_wind_direction": 281.1,
+    "wind_direction_range": [
+      {
+        "min": 201.14976951227504,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 1.1497695122750429
+      }
+    ]
+  },
+  {
+    "spotId": "ijmuiden",
+    "name": "IJmuiden",
+    "latitude": 52.45,
+    "longitude": 4.57,
+    "province": "Noord-Holland",
+    "coast_orientation": 271.5,
+    "ideal_wind_direction": 1.5,
+    "wind_direction_range": [
+      {
+        "min": 281.4950636283488,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 81.49506362834882
+      }
+    ]
+  },
+  {
+    "spotId": "zandvoort",
+    "name": "Zandvoort",
+    "latitude": 52.373,
+    "longitude": 4.533,
+    "province": "Noord-Holland",
+    "coast_orientation": 213.5,
+    "ideal_wind_direction": 303.5,
+    "wind_direction_range": [
+      {
+        "min": 223.512529257574,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 23.512529257573988
+      }
+    ]
+  },
+  {
+    "spotId": "scheveningen",
+    "name": "Scheveningen",
+    "latitude": 52.103,
+    "longitude": 4.264,
+    "province": "Zuid-Holland",
+    "coast_orientation": 116.4,
+    "ideal_wind_direction": 206.4,
+    "wind_direction_range": [
+      {
+        "min": 126.38287125136833,
+        "max": 286.38287125136833
+      }
+    ]
+  },
+  {
+    "spotId": "noordwijk",
+    "name": "Noordwijk aan Zee",
+    "latitude": 52.239,
+    "longitude": 4.433,
+    "province": "Zuid-Holland",
+    "coast_orientation": 202.4,
+    "ideal_wind_direction": 292.4,
+    "wind_direction_range": [
+      {
+        "min": 212.36793355719192,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 12.367933557191975
+      }
+    ]
+  },
+  {
+    "spotId": "katwijk",
+    "name": "Katwijk aan Zee",
+    "latitude": 52.205,
+    "longitude": 4.398,
+    "province": "Zuid-Holland",
+    "coast_orientation": 221.3,
+    "ideal_wind_direction": 311.3,
+    "wind_direction_range": [
+      {
+        "min": 231.2550890889279,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 31.25508908892789
+      }
+    ]
+  },
+  {
+    "spotId": "bloemendaal",
+    "name": "Bloemendaal aan Zee",
+    "latitude": 52.412,
+    "longitude": 4.526,
+    "province": "Noord-Holland",
+    "coast_orientation": 216.3,
+    "ideal_wind_direction": 306.3,
+    "wind_direction_range": [
+      {
+        "min": 226.29617327071765,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 26.296173270717645
+      }
+    ]
+  },
+  {
+    "spotId": "schoorl",
+    "name": "Schoorl",
+    "latitude": 52.713,
+    "longitude": 4.637,
+    "province": "Noord-Holland",
+    "coast_orientation": 195.2,
+    "ideal_wind_direction": 285.2,
+    "wind_direction_range": [
+      {
+        "min": 205.20860171260176,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 5.208601712601762
+      }
+    ]
+  },
+  {
+    "spotId": "brouwersdam",
+    "name": "Brouwersdam",
+    "latitude": 51.742,
+    "longitude": 3.853,
+    "province": "Zeeland",
+    "coast_orientation": 191.5,
+    "ideal_wind_direction": 281.5,
+    "wind_direction_range": [
+      {
+        "min": 201.473799300648,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 1.473799300648011
+      }
+    ]
+  },
+  {
+    "spotId": "vrouwenpolder",
+    "name": "Vrouwenpolder",
+    "latitude": 51.584,
+    "longitude": 3.593,
+    "province": "Zeeland",
+    "coast_orientation": 279.2,
+    "ideal_wind_direction": 9.2,
+    "wind_direction_range": [
+      {
+        "min": 289.2375538978156,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 89.23755389781559
+      }
+    ]
+  },
+  {
+    "spotId": "domburg",
+    "name": "Domburg",
+    "latitude": 51.561,
+    "longitude": 3.492,
+    "province": "Zeeland",
+    "coast_orientation": 250.4,
+    "ideal_wind_direction": 340.4,
+    "wind_direction_range": [
+      {
+        "min": 260.3597880850821,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 60.35978808508207
+      }
+    ]
+  },
+  {
+    "spotId": "ouddorp",
+    "name": "Ouddorp",
+    "latitude": 51.813,
+    "longitude": 3.936,
+    "province": "Zuid-Holland",
+    "coast_orientation": 249.4,
+    "ideal_wind_direction": 339.4,
+    "wind_direction_range": [
+      {
+        "min": 259.3505210836006,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 59.35052108360054
+      }
+    ]
+  },
+  {
+    "spotId": "oostvoorne",
+    "name": "Oostvoorne",
+    "latitude": 51.901,
+    "longitude": 4.071,
+    "province": "Zuid-Holland",
+    "coast_orientation": 241.2,
+    "ideal_wind_direction": 331.2,
+    "wind_direction_range": [
+      {
+        "min": 251.22736104352362,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 51.22736104352367
+      }
+    ]
+  },
+  {
+    "spotId": "sandmotor",
+    "name": "Sandmotor",
+    "latitude": 52.011,
+    "longitude": 4.191,
+    "province": "Zuid-Holland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "workum",
+    "name": "Workum",
+    "latitude": 52.975,
+    "longitude": 5.439,
+    "province": "Friesland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "mirns",
+    "name": "Mirns",
+    "latitude": 52.874,
+    "longitude": 5.445,
+    "province": "Friesland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "makkum",
+    "name": "Makkum",
+    "latitude": 53.052,
+    "longitude": 5.397,
+    "province": "Friesland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "medemblik",
+    "name": "Medemblik",
+    "latitude": 52.774,
+    "longitude": 5.104,
+    "province": "Noord-Holland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "andijk",
+    "name": "Andijk",
+    "latitude": 52.74,
+    "longitude": 5.202,
+    "province": "Noord-Holland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "edam",
+    "name": "Edam",
+    "latitude": 52.511,
+    "longitude": 5.049,
+    "province": "Noord-Holland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "muiderberg",
+    "name": "Muiderberg",
+    "latitude": 52.333,
+    "longitude": 5.109,
+    "province": "Noord-Holland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "texel",
+    "name": "Texel Pole 9",
+    "latitude": 53.1,
+    "longitude": 4.765,
+    "province": "Noord-Holland",
+    "coast_orientation": 224.7,
+    "ideal_wind_direction": 314.7,
+    "wind_direction_range": [
+      {
+        "min": 234.7060006935112,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 34.70600069351116
+      }
+    ]
+  },
+  {
+    "spotId": "terschelling",
+    "name": "Terschelling",
+    "latitude": 53.367,
+    "longitude": 5.338,
+    "province": "Friesland",
+    "coast_orientation": 72.0,
+    "ideal_wind_direction": 162.0,
+    "wind_direction_range": [
+      {
+        "min": 82.03772219624875,
+        "max": 242.03772219624875
+      }
+    ]
+  },
+  {
+    "spotId": "vlieland",
+    "name": "Vlieland",
+    "latitude": 53.3,
+    "longitude": 5.068,
+    "province": "Friesland",
+    "coast_orientation": 80.3,
+    "ideal_wind_direction": 170.3,
+    "wind_direction_range": [
+      {
+        "min": 90.34445728896623,
+        "max": 250.34445728896623
+      }
+    ]
+  },
+  {
+    "spotId": "ameland",
+    "name": "Ameland",
+    "latitude": 53.448,
+    "longitude": 5.776,
+    "province": "Friesland",
+    "coast_orientation": 100.5,
+    "ideal_wind_direction": 190.5,
+    "wind_direction_range": [
+      {
+        "min": 110.4730395351254,
+        "max": 270.4730395351254
+      }
+    ]
+  },
+  {
+    "spotId": "schiermonnikoog",
+    "name": "Schiermonnikoog",
+    "latitude": 53.5,
+    "longitude": 6.215,
+    "province": "Friesland",
+    "coast_orientation": 46.3,
+    "ideal_wind_direction": 136.3,
+    "wind_direction_range": [
+      {
+        "min": 56.34932988605016,
+        "max": 216.34932988605016
+      }
+    ]
+  },
+  {
+    "spotId": "castricum",
+    "name": "Castricum aan Zee",
+    "latitude": 52.555,
+    "longitude": 4.61,
+    "province": "Noord-Holland",
+    "coast_orientation": 148.8,
+    "ideal_wind_direction": 238.8,
+    "wind_direction_range": [
+      {
+        "min": 158.7734944254363,
+        "max": 318.7734944254363
+      }
+    ]
+  },
+  {
+    "spotId": "bergen",
+    "name": "Bergen aan Zee",
+    "latitude": 52.668,
+    "longitude": 4.63,
+    "province": "Noord-Holland",
+    "coast_orientation": 212.8,
+    "ideal_wind_direction": 302.8,
+    "wind_direction_range": [
+      {
+        "min": 222.8035534227106,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 22.803553422710593
+      }
+    ]
+  },
+  {
+    "spotId": "den_helder",
+    "name": "Den Helder",
+    "latitude": 52.961,
+    "longitude": 4.75,
+    "province": "Noord-Holland",
+    "coast_orientation": 275.1,
+    "ideal_wind_direction": 5.1,
+    "wind_direction_range": [
+      {
+        "min": 285.10336834630016,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 85.10336834630016
+      }
+    ]
+  },
+  {
+    "spotId": "maasvlakte",
+    "name": "Maasvlakte",
+    "latitude": 51.958,
+    "longitude": 4.01,
+    "province": "Zuid-Holland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "hindeloopen",
+    "name": "Hindeloopen",
+    "latitude": 52.941,
+    "longitude": 5.404,
+    "province": "Friesland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "harlingen",
+    "name": "Harlingen",
+    "latitude": 53.176,
+    "longitude": 5.423,
+    "province": "Friesland",
+    "coast_orientation": 136.7,
+    "ideal_wind_direction": 226.7,
+    "wind_direction_range": [
+      {
+        "min": 146.74066601416786,
+        "max": 306.74066601416786
+      }
+    ]
+  },
+  {
+    "spotId": "lemmer",
+    "name": "Lemmer",
+    "latitude": 52.844,
+    "longitude": 5.712,
+    "province": "Friesland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "strand_horst",
+    "name": "Strand Horst",
+    "latitude": 52.261,
+    "longitude": 5.589,
+    "province": "Gelderland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "woonboulevard",
+    "name": "Woonboulevard Almere",
+    "latitude": 52.391,
+    "longitude": 5.237,
+    "province": "Flevoland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "nijkerk",
+    "name": "Nijkerk",
+    "latitude": 52.223,
+    "longitude": 5.483,
+    "province": "Gelderland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "zeewolde",
+    "name": "Zeewolde",
+    "latitude": 52.333,
+    "longitude": 5.54,
+    "province": "Flevoland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "urk",
+    "name": "Urk",
+    "latitude": 52.661,
+    "longitude": 5.603,
+    "province": "Flevoland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "kornwerderzand",
+    "name": "Kornwerderzand",
+    "latitude": 53.065,
+    "longitude": 5.341,
+    "province": "Friesland",
+    "coast_orientation": 155.2,
+    "ideal_wind_direction": 245.2,
+    "wind_direction_range": [
+      {
+        "min": 165.20755998607478,
+        "max": 325.2075599860748
+      }
+    ]
+  },
+  {
+    "spotId": "stavoren",
+    "name": "Stavoren",
+    "latitude": 52.888,
+    "longitude": 5.363,
+    "province": "Friesland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "den_oever",
+    "name": "Den Oever",
+    "latitude": 52.933,
+    "longitude": 5.035,
+    "province": "Noord-Holland",
+    "coast_orientation": 304.9,
+    "ideal_wind_direction": 34.9,
+    "wind_direction_range": [
+      {
+        "min": 314.8887390433335,
+        "max": 360
+      },
+      {
+        "min": 0,
+        "max": 114.88873904333349
+      }
+    ]
+  },
+  {
+    "spotId": "eembrugge",
+    "name": "Eembrugge",
+    "latitude": 52.241,
+    "longitude": 5.308,
+    "province": "Utrecht",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "spijkerboor",
+    "name": "Spijkerboor",
+    "latitude": 53.074,
+    "longitude": 6.7,
+    "province": "Drenthe",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "bovenkarspel",
+    "name": "Bovenkarspel",
+    "latitude": 52.705,
+    "longitude": 5.251,
+    "province": "Noord-Holland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "huizen",
+    "name": "Huizen",
+    "latitude": 52.304,
+    "longitude": 5.24,
+    "province": "Noord-Holland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "nederhorst",
+    "name": "Nederhorst den Berg",
+    "latitude": 52.276,
+    "longitude": 5.058,
+    "province": "Noord-Holland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "woerden",
+    "name": "Woerden",
+    "latitude": 52.086,
+    "longitude": 4.891,
+    "province": "Utrecht",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "aalst",
+    "name": "Aalst",
+    "latitude": 51.8,
+    "longitude": 5.117,
+    "province": "Gelderland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "harderwijk",
+    "name": "Harderwijk",
+    "latitude": 52.348,
+    "longitude": 5.62,
+    "province": "Gelderland",
+    "error": "No matching features. Check query location, tags, and log."
+  },
+  {
+    "spotId": "wijdenes",
+    "name": "Wijdenes",
+    "latitude": 52.629,
+    "longitude": 5.198,
+    "province": "Noord-Holland",
+    "error": "No matching features. Check query location, tags, and log."
+  }
+]

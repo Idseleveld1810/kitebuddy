@@ -1,0 +1,352 @@
+[
+  {
+    "id": "wijk_aan_zee",
+    "name": "Wijk aan Zee",
+    "province": "Noord-Holland",
+    "latitude": 52.495,
+    "longitude": 4.563
+  },
+  {
+    "id": "ijmuiden",
+    "name": "IJmuiden",
+    "province": "Noord-Holland",
+    "latitude": 52.45,
+    "longitude": 4.57
+  },
+  {
+    "id": "zandvoort",
+    "name": "Zandvoort",
+    "province": "Noord-Holland",
+    "latitude": 52.373,
+    "longitude": 4.533
+  },
+  {
+    "id": "scheveningen",
+    "name": "Scheveningen",
+    "province": "Zuid-Holland",
+    "latitude": 52.103,
+    "longitude": 4.264
+  },
+  {
+    "id": "noordwijk",
+    "name": "Noordwijk aan Zee",
+    "province": "Zuid-Holland",
+    "latitude": 52.239,
+    "longitude": 4.433
+  },
+  {
+    "id": "katwijk",
+    "name": "Katwijk aan Zee",
+    "province": "Zuid-Holland",
+    "latitude": 52.205,
+    "longitude": 4.398
+  },
+  {
+    "id": "bloemendaal",
+    "name": "Bloemendaal aan Zee",
+    "province": "Noord-Holland",
+    "latitude": 52.412,
+    "longitude": 4.526
+  },
+  {
+    "id": "schoorl",
+    "name": "Schoorl",
+    "province": "Noord-Holland",
+    "latitude": 52.713,
+    "longitude": 4.637
+  },
+  {
+    "id": "brouwersdam",
+    "name": "Brouwersdam",
+    "province": "Zeeland",
+    "latitude": 51.742,
+    "longitude": 3.853
+  },
+  {
+    "id": "vrouwenpolder",
+    "name": "Vrouwenpolder",
+    "province": "Zeeland",
+    "latitude": 51.584,
+    "longitude": 3.593
+  },
+  {
+    "id": "domburg",
+    "name": "Domburg",
+    "province": "Zeeland",
+    "latitude": 51.561,
+    "longitude": 3.492
+  },
+  {
+    "id": "ouddorp",
+    "name": "Ouddorp",
+    "province": "Zuid-Holland",
+    "latitude": 51.813,
+    "longitude": 3.936
+  },
+  {
+    "id": "oostvoorne",
+    "name": "Oostvoorne",
+    "province": "Zuid-Holland",
+    "latitude": 51.901,
+    "longitude": 4.071
+  },
+  {
+    "id": "sandmotor",
+    "name": "Sandmotor",
+    "province": "Zuid-Holland",
+    "latitude": 52.011,
+    "longitude": 4.191
+  },
+  {
+    "id": "workum",
+    "name": "Workum",
+    "province": "Friesland",
+    "latitude": 52.975,
+    "longitude": 5.439
+  },
+  {
+    "id": "mirns",
+    "name": "Mirns",
+    "province": "Friesland",
+    "latitude": 52.874,
+    "longitude": 5.445
+  },
+  {
+    "id": "makkum",
+    "name": "Makkum",
+    "province": "Friesland",
+    "latitude": 53.052,
+    "longitude": 5.397
+  },
+  {
+    "id": "medemblik",
+    "name": "Medemblik",
+    "province": "Noord-Holland",
+    "latitude": 52.774,
+    "longitude": 5.104
+  },
+  {
+    "id": "andijk",
+    "name": "Andijk",
+    "province": "Noord-Holland",
+    "latitude": 52.74,
+    "longitude": 5.202
+  },
+  {
+    "id": "edam",
+    "name": "Edam",
+    "province": "Noord-Holland",
+    "latitude": 52.511,
+    "longitude": 5.049
+  },
+  {
+    "id": "muiderberg",
+    "name": "Muiderberg",
+    "province": "Noord-Holland",
+    "latitude": 52.333,
+    "longitude": 5.109
+  },
+  {
+    "id": "texel",
+    "name": "Texel Pole 9",
+    "province": "Noord-Holland",
+    "latitude": 53.1,
+    "longitude": 4.765
+  },
+  {
+    "id": "terschelling",
+    "name": "Terschelling",
+    "province": "Friesland",
+    "latitude": 53.367,
+    "longitude": 5.338
+  },
+  {
+    "id": "vlieland",
+    "name": "Vlieland",
+    "province": "Friesland",
+    "latitude": 53.3,
+    "longitude": 5.068
+  },
+  {
+    "id": "ameland",
+    "name": "Ameland",
+    "province": "Friesland",
+    "latitude": 53.448,
+    "longitude": 5.776
+  },
+  {
+    "id": "schiermonnikoog",
+    "name": "Schiermonnikoog",
+    "province": "Friesland",
+    "latitude": 53.5,
+    "longitude": 6.215
+  },
+  {
+    "id": "castricum",
+    "name": "Castricum aan Zee",
+    "province": "Noord-Holland",
+    "latitude": 52.555,
+    "longitude": 4.61
+  },
+  {
+    "id": "bergen",
+    "name": "Bergen aan Zee",
+    "province": "Noord-Holland",
+    "latitude": 52.668,
+    "longitude": 4.63
+  },
+  {
+    "id": "den_helder",
+    "name": "Den Helder",
+    "province": "Noord-Holland",
+    "latitude": 52.961,
+    "longitude": 4.75
+  },
+  {
+    "id": "maasvlakte",
+    "name": "Maasvlakte",
+    "province": "Zuid-Holland",
+    "latitude": 51.958,
+    "longitude": 4.01
+  },
+  {
+    "id": "hindeloopen",
+    "name": "Hindeloopen",
+    "province": "Friesland",
+    "latitude": 52.941,
+    "longitude": 5.404
+  },
+  {
+    "id": "harlingen",
+    "name": "Harlingen",
+    "province": "Friesland",
+    "latitude": 53.176,
+    "longitude": 5.423
+  },
+  {
+    "id": "lemmer",
+    "name": "Lemmer",
+    "province": "Friesland",
+    "latitude": 52.844,
+    "longitude": 5.712
+  },
+  {
+    "id": "strand_horst",
+    "name": "Strand Horst",
+    "province": "Gelderland",
+    "latitude": 52.261,
+    "longitude": 5.589
+  },
+  {
+    "id": "woonboulevard",
+    "name": "Woonboulevard Almere",
+    "province": "Flevoland",
+    "latitude": 52.391,
+    "longitude": 5.237
+  },
+  {
+    "id": "nijkerk",
+    "name": "Nijkerk",
+    "province": "Gelderland",
+    "latitude": 52.223,
+    "longitude": 5.483
+  },
+  {
+    "id": "zeewolde",
+    "name": "Zeewolde",
+    "province": "Flevoland",
+    "latitude": 52.333,
+    "longitude": 5.54
+  },
+  {
+    "id": "urk",
+    "name": "Urk",
+    "province": "Flevoland",
+    "latitude": 52.661,
+    "longitude": 5.603
+  },
+  {
+    "id": "kornwerderzand",
+    "name": "Kornwerderzand",
+    "province": "Friesland",
+    "latitude": 53.065,
+    "longitude": 5.341
+  },
+  {
+    "id": "stavoren",
+    "name": "Stavoren",
+    "province": "Friesland",
+    "latitude": 52.888,
+    "longitude": 5.363
+  },
+  {
+    "id": "den_oever",
+    "name": "Den Oever",
+    "province": "Noord-Holland",
+    "latitude": 52.933,
+    "longitude": 5.035
+  },
+  {
+    "id": "eembrugge",
+    "name": "Eembrugge",
+    "province": "Utrecht",
+    "latitude": 52.241,
+    "longitude": 5.308
+  },
+  {
+    "id": "spijkerboor",
+    "name": "Spijkerboor",
+    "province": "Drenthe",
+    "latitude": 53.074,
+    "longitude": 6.7
+  },
+  {
+    "id": "bovenkarspel",
+    "name": "Bovenkarspel",
+    "province": "Noord-Holland",
+    "latitude": 52.705,
+    "longitude": 5.251
+  },
+  {
+    "id": "huizen",
+    "name": "Huizen",
+    "province": "Noord-Holland",
+    "latitude": 52.304,
+    "longitude": 5.24
+  },
+  {
+    "id": "nederhorst",
+    "name": "Nederhorst den Berg",
+    "province": "Noord-Holland",
+    "latitude": 52.276,
+    "longitude": 5.058
+  },
+  {
+    "id": "woerden",
+    "name": "Woerden",
+    "province": "Utrecht",
+    "latitude": 52.086,
+    "longitude": 4.891
+  },
+  {
+    "id": "aalst",
+    "name": "Aalst",
+    "province": "Gelderland",
+    "latitude": 51.8,
+    "longitude": 5.117
+  },
+  {
+    "id": "harderwijk",
+    "name": "Harderwijk",
+    "province": "Gelderland",
+    "latitude": 52.348,
+    "longitude": 5.62
+  },
+  {
+    "id": "wijdenes",
+    "name": "Wijdenes",
+    "province": "Noord-Holland",
+    "latitude": 52.629,
+    "longitude": 5.198
+  }
+]
