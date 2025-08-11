@@ -1,13 +1,30 @@
-const spotCoordinates = {
-  'Scheveningen': { lat: 52.1, lon: 4.27 },
-  'IJmuiden': { lat: 52.45, lon: 4.58 },
-  'Domburg': { lat: 51.57, lon: 3.50 },
-};
+import fs from 'fs';
+import path from 'path';
+
+// Read spots data from JSON file
+let spotsData = [];
+try {
+  const spotsPath = path.join(process.cwd(), 'public', 'data', 'spots_with_wind_top50.json');
+  spotsData = JSON.parse(fs.readFileSync(spotsPath, 'utf8'));
+} catch (error) {
+  console.error('Could not load spots data:', error);
+}
+
+// Create coordinates lookup from spots data
+const spotCoordinates = {};
+spotsData.forEach(spot => {
+  spotCoordinates[spot.name] = { lat: spot.latitude, lon: spot.longitude };
+});
 
 const weekdaysNl = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
 
 export async function fetchForecast(spot = 'Scheveningen') {
-  const coords = spotCoordinates[spot] || spotCoordinates['Scheveningen'];
+  const coords = spotCoordinates[spot];
+  if (!coords) {
+    console.error(`❌ No coordinates found for spot: ${spot}`);
+    return {};
+  }
+  
   const now = new Date();
   const endDate = new Date();
   endDate.setDate(now.getDate() + 6);
