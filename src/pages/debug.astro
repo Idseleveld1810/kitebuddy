@@ -1,0 +1,44 @@
+---
+// Debug page to check environment variables
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Debug - Kitebuddy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body style="font-family: system-ui; padding: 20px;">
+    <h1>🔍 Debug Information</h1>
+    
+    <h2>Environment Variables:</h2>
+    <div id="env-vars"></div>
+    
+    <h2>Supabase Client:</h2>
+    <div id="supabase-status"></div>
+    
+    <script>
+      // Check environment variables
+      const envVars = {
+        PUBLIC_SUPABASE_URL: import.meta.env.PUBLIC_SUPABASE_URL,
+        PUBLIC_SUPABASE_ANON_KEY: import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+      };
+      
+      document.getElementById('env-vars').innerHTML = `
+        <p><strong>PUBLIC_SUPABASE_URL:</strong> ${envVars.PUBLIC_SUPABASE_URL || '❌ NOT SET'}</p>
+        <p><strong>PUBLIC_SUPABASE_ANON_KEY:</strong> ${envVars.PUBLIC_SUPABASE_ANON_KEY ? '✅ SET (hidden)' : '❌ NOT SET'}</p>
+      `;
+      
+      // Check Supabase client
+      import('../lib/supabaseClient.js').then(({ supabase }) => {
+        document.getElementById('supabase-status').innerHTML = `
+          <p><strong>Supabase Client:</strong> ${supabase ? '✅ CREATED' : '❌ NULL'}</p>
+        `;
+      }).catch(error => {
+        document.getElementById('supabase-status').innerHTML = `
+          <p><strong>Supabase Client Error:</strong> ${error.message}</p>
+        `;
+      });
+    </script>
+  </body>
+</html>
