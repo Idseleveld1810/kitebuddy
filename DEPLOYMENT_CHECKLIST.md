@@ -25,7 +25,7 @@ git init
 git add .
 git commit -m "Initial commit for Netlify deployment"
 
-# Create GitHub repo and push
+# Create GitHub repo and push 
 git remote add origin https://github.com/yourusername/kitebuddy.git
 git branch -M main
 git push -u origin main
