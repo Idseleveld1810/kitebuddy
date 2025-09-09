@@ -23,6 +23,7 @@
     "recharts": "^2.8.0"
   },
   "devDependencies": {
+    "@astrojs/netlify": "^4.1.1",
     "@types/leaflet": "^1.9.8",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
