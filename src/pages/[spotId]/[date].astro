@@ -1,50 +1,94 @@
 ---
-import WindChart from "../../components/WindChart.jsx";
-import spots from "../../data/spots_with_wind_top50.json";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WindChart from '../../components/WindChart.jsx';
+import WeatherTable from '../../components/WeatherTable.jsx';
+import spots from '../../data/spots_with_wind_top50.json';
 import fs from 'fs';
 import path from 'path';
 
-// ✅ Generate all combinations of spotId and date for the next 14 days
 export async function getStaticPaths() {
   const today = new Date();
   const paths = [];
-
-  for (const spot of spots) {
-    for (let i = 0; i < 14; i++) { // Generate 14 days instead of 7
-      const d = new Date(today);
-      d.setDate(d.getDate() + i);
-      const date = d.toISOString().split("T")[0];
-      paths.push({ params: { spotId: spot.spotId, date } });
+  
+  // Generate paths for the next 14 days
+  for (let i = 0; i < 14; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+    const dateStr = date.toISOString().split('T')[0];
+    
+    // Generate paths for each spot
+    for (const spot of spots) {
+      paths.push({
+        params: { spotId: spot.spotId, date: dateStr }
+      });
     }
   }
-
+  
   return paths;
 }
 
 const { spotId, date } = Astro.params;
 
-// Load forecast data from file system
-let forecastData = {};
+// Try to fetch data from Stormglass API first
+let data = [];
+let source = 'stormglass';
+let lastUpdated = null;
+
 try {
-  const forecastPath = path.join(process.cwd(), 'public', 'data', 'forecastData', `${spotId}.json`);
-  console.log(`Reading forecast data for details page: ${forecastPath}`);
+  const apiUrl = `http://localhost:4321/api/day?spotId=${spotId}&date=${date}`;
+  const response = await fetch(apiUrl);
   
-  if (fs.existsSync(forecastPath)) {
-    const fileContent = fs.readFileSync(forecastPath, 'utf8');
-    forecastData = JSON.parse(fileContent);
-    console.log(`Loaded forecast data for ${spotId} details:`, Object.keys(forecastData));
+  if (response.ok) {
+    const apiData = await response.json();
+    data = apiData.data || [];
+    source = apiData.source || 'stormglass';
+    lastUpdated = apiData.lastUpdated || null;
   } else {
-    console.error(`Forecast file not found for details: ${forecastPath}`);
+    console.log(`Stormglass API failed for ${spotId} on ${date}, falling back to file data`);
+    throw new Error('API failed');
   }
-} catch (err) {
-  console.error(`Error loading forecast data for ${spotId} details:`, err);
+} catch (error) {
+  console.log(`Falling back to file data for ${spotId} on ${date}`);
+  
+  // Fallback to file-based data
+  try {
+    const forecastPath = path.join(process.cwd(), 'public', 'data', 'forecastData', `${spotId}.json`);
+    
+    if (fs.existsSync(forecastPath)) {
+      const fileContent = fs.readFileSync(forecastPath, 'utf8');
+      const forecastData = JSON.parse(fileContent);
+      
+      const dateObj2 = new Date(date);
+      const dayName2 = ["zondag", "maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag"][dateObj2.getDay()];
+      data = forecastData[dayName2] || [];
+      source = 'file';
+      
+      console.log(`Loaded file data for ${spotId} on ${dayName2}:`, data.length, 'entries');
+    } else {
+      console.error(`Forecast file not found: ${forecastPath}`);
+      data = [];
+      source = 'none';
+    }
+  } catch (fileError) {
+    console.error(`No file data available for ${spotId} on ${date}:`, fileError);
+    data = [];
+    source = 'none';
+  }
 }
 
 // Parse the date and determine which day of the week it is
 const dateObj = new Date(date);
 const dayName = ['zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'][dateObj.getDay()];
 const shortDate = dateObj.toLocaleDateString("nl-NL", { day: 'numeric', month: 'short' });
-const data = forecastData[dayName] || [];
+
+// Get the proper capitalized spot name
+const spotData = spots.find(spot => spot.spotId === spotId);
+const spotName = spotData ? spotData.name : spotId;
+
+// Check if current data is available and if it's today
+const today = new Date().toISOString().split('T')[0];
+const isToday = date === today;
+const hasCurrentData = isToday && data.some(entry => entry.currentSpeed !== null && entry.currentSpeed > 0);
 ---
 
 <html lang="nl">
@@ -53,64 +97,63 @@ const data = forecastData[dayName] || [];
       @import "../../styles/global.css";
     </style>
     <meta charset="UTF-8" />
-    <title>Kitebuddy - {spotId} - {shortDate}</title>
+    <title>Kitebuddy - {spotName} - {shortDate}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body class="bg-amber-50 font-sans text-gray-800 min-h-screen">
-    <header class="bg-cyan-700 text-white text-center p-4">
-      <h1 class="text-2xl md:text-3xl font-semibold">
-        Kitesurf voorspelling – {spotId} – {dayName} {shortDate}
+    <header class="bg-cyan-700 text-white text-center p-3 sm:p-4">
+      <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold leading-tight">
+        Kitesurf voorspelling
       </h1>
-      <a href={`/${spotId}`} class="text-sm text-cyan-200 hover:text-white mt-2 inline-block">
-        ← Terug naar overzicht
-      </a>
+      <p class="text-sm sm:text-base mt-1">
+        {spotName} - {shortDate}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-2 mt-2 justify-center">
+        <a href={`/${spotId}`} class="inline-block px-3 py-1 bg-cyan-600 hover:bg-cyan-500 rounded text-sm transition-colors duration-200">
+          ← Week overzicht
+        </a>
+        <a href="/" class="inline-block px-3 py-1 bg-cyan-500 hover:bg-cyan-400 rounded text-sm transition-colors duration-200">
+          🗺️ Terug naar kaart
+        </a>
+      </div>
     </header>
 
-    <div class="max-w-3xl mx-auto p-4 space-y-4">
+    <div class="w-full max-w-4xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4 space-y-3 sm:space-y-4">
       {data.length > 0 ? (
-        <>
-          <WindChart client:only="react" data={data} />
+        <div>
+          <div class="bg-white rounded-lg sm:rounded-xl shadow-sm border border-cyan-100 p-3 sm:p-4">
+            <WindChart client:only="react" data={data} />
+          </div>
 
-          <table class="w-full mt-6 text-sm bg-white rounded-xl shadow border border-cyan-100">
-            <thead class="bg-cyan-100 text-gray-600">
-              <tr>
-                <th class="px-4 py-2 text-left">Tijd</th>
-                <th class="px-4 py-2 text-left">Wind (kn)</th>
-                <th class="px-4 py-2 text-left">Vlagen (kn)</th>
-                <th class="px-4 py-2 text-left">Richting</th>
-                <th class="px-4 py-2 text-left">Regen (mm)</th>
-                <th class="px-4 py-2 text-left">Golven (m)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map(entry => (
-                <tr class="border-t">
-                  <td class="px-4 py-1">{entry.time}</td>
-                  <td class="px-4 py-1">
-                    <span class={entry.speed >= 19 ? "text-green-500 font-semibold" : entry.speed >= 13 ? "text-blue-500" : "text-cyan-300"}>
-                      {entry.speed}
-                    </span>
-                  </td>
-                  <td class="px-4 py-1">
-                    <span class={entry.gust >= 45 ? "text-red-500 font-bold" : entry.gust >= 35 ? "text-orange-500 font-semibold" : entry.gust >= 25 ? "text-green-500" : "text-blue-400"}>
-                      {entry.gust}
-                    </span>
-                  </td>
-                  <td class="px-4 py-1 flex items-center gap-2">
-                    <span style={`transform: rotate(${entry.dir + 180}deg)`} class="block">↑</span>
-                    {entry.dir}&deg;
-                  </td>
-                  <td class="px-4 py-1 text-indigo-500">{entry.rain}</td>
-                  <td class="px-4 py-1 text-purple-500">{entry.waveHeight || '?'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
+          <div class="bg-white rounded-lg sm:rounded-xl shadow-sm border border-cyan-100 overflow-hidden">
+            <WeatherTable 
+              client:only="react"
+              data={data}
+              source={source}
+              isToday={isToday}
+              hasCurrentData={hasCurrentData}
+            />
+          </div>
+          
+                  {source === 'openmeteo' && (
+          <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-xs text-green-700">
+            🌤️ <strong>Open-Meteo Weather Data:</strong> High-quality wind forecasts from Open-Meteo
+          </div>
+        )}
+          
+          {lastUpdated && (
+            <div class="text-center text-xs text-gray-500 mt-4">
+              📅 <strong>Data last updated:</strong> {new Date(lastUpdated).toLocaleString('nl-NL')}
+              {source === 'cache' && (
+                <span class="text-green-600 ml-2">🔄 Served from cache</span>
+              )}
+            </div>
+          )}
+        </div>
       ) : (
-        <div class="text-center py-8">
-          <p class="text-gray-600">Geen forecast data beschikbaar voor {spotId} op {shortDate}</p>
-          <p class="text-sm text-gray-500 mt-2">Controleer of het bestand /data/forecastData/{spotId}.json bestaat</p>
+        <div class="text-center py-8 px-4">
+          <p class="text-gray-600 text-sm sm:text-base">Geen forecast data beschikbaar voor {spotName} op {shortDate}</p>
+          <p class="text-xs sm:text-sm text-gray-500 mt-2">Controleer of het bestand /data/forecastData/{spotId}.json bestaat</p>
         </div>
       )}
     </div>

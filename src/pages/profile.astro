@@ -1,0 +1,369 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import spots from '../data/spots_with_wind_top50.json';
+
+// Voor nu: mock user data (later vervangen door echte authentication)
+const mockUser = {
+  id: 'idseleveld',
+  name: 'Kitesurfer',
+  email: 'kitesurfer@example.com',
+  phone: '+31612345678',
+  emailVerified: false
+};
+
+// Laad gebruikersprofiel uit JSON bestand
+let userProfile = null;
+try {
+  const fs = await import('fs');
+  const path = await import('path');
+  const usersPath = path.join(process.cwd(), 'profiles', 'users.json');
+  
+  if (fs.existsSync(usersPath)) {
+    const usersData = fs.readFileSync(usersPath, 'utf8');
+    const users = JSON.parse(usersData);
+    userProfile = users[mockUser.id] || null;
+  }
+} catch (error) {
+  console.error('Fout bij laden gebruikersprofiel:', error);
+}
+
+// Haal alle beschikbare spots op voor dropdown
+const availableSpots = spots.map(spot => ({
+  id: spot.spotId,
+  name: spot.name,
+  region: spot.region
+}));
+---
+
+<html lang="nl">
+  <head>
+    <style is:global>
+      @import "../styles/global.css";
+    </style>
+    <meta charset="UTF-8" />
+    <title>Kitebuddy - Mijn Profiel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="bg-amber-50 font-sans text-gray-800 min-h-screen">
+    <header class="bg-cyan-700 text-white text-center p-3 sm:p-4">
+      <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold leading-tight">
+        Mijn Profiel
+      </h1>
+      <a href="/" class="text-xs sm:text-sm text-cyan-200 hover:text-white mt-2 inline-block">
+        ← Terug naar kaart
+      </a>
+    </header>
+
+    <main class="w-full max-w-4xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4 space-y-4">
+      
+      <!-- 🔐 Login Status -->
+      <div class="bg-white rounded-lg shadow-sm border border-cyan-100 p-4">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+          🔐 Account Status
+        </h2>
+        
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gray-600">Email:</span>
+            <span class="font-medium">{mockUser.email}</span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gray-600">Status:</span>
+            {mockUser.emailVerified ? (
+              <span class="text-green-600 text-sm font-medium">✅ Geverifieerd</span>
+            ) : (
+              <div class="flex items-center space-x-2">
+                <span class="text-orange-600 text-sm font-medium">⚠️ Niet geverifieerd</span>
+                <button class="px-3 py-1 bg-orange-500 text-white text-xs rounded hover:bg-orange-600 transition-colors">
+                  Verificatie versturen
+                </button>
+              </div>
+            )}
+          </div>
+          
+          <div class="pt-3 border-t border-gray-200">
+            <button class="w-full px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors text-sm">
+              Uitloggen
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 👤 Gebruikersinformatie -->
+      <div class="bg-white rounded-lg shadow-sm border border-cyan-100 p-4">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+          👤 Gebruikersinformatie
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Naam</label>
+            <input 
+              type="text" 
+              value={mockUser.name}
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            />
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Telefoonnummer (SMS)</label>
+            <input 
+              type="tel" 
+              value={mockUser.phone}
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              placeholder="+31612345678"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- 🏄‍♂️ Favoriete Spots -->
+      <div class="bg-white rounded-lg shadow-sm border border-cyan-100 p-4">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+          🏄‍♂️ Mijn Favoriete Spots
+        </h2>
+        
+        <div class="space-y-3">
+          {userProfile && userProfile.preferredSpots ? (
+            userProfile.preferredSpots.map((spotName, index) => (
+              <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg" data-spot-name={spotName}>
+                <div class="flex items-center space-x-3">
+                  <span class="text-lg font-medium text-gray-700">{index + 1}</span>
+                  <div>
+                    <div class="font-medium text-gray-800">{spotName}</div>
+                    <div class="text-sm text-gray-500">
+                      {availableSpots.find(s => s.name === spotName)?.region || 'Regio onbekend'}
+                    </div>
+                  </div>
+                </div>
+                <button 
+                  class="text-red-500 hover:text-red-700 text-sm px-2 py-1 rounded hover:bg-red-50 transition-colors"
+                  onclick="removeSpot('${spotName}')"
+                >
+                  Verwijder
+                </button>
+              </div>
+            ))
+          ) : (
+            <div class="text-center py-6 text-gray-500">
+              <p>Nog geen favoriete spots toegevoegd</p>
+            </div>
+          )}
+          
+          <!-- Spot toevoegen sectie -->
+          <div class="pt-4 border-t border-gray-200">
+            <h3 class="text-md font-medium text-gray-700 mb-3">Spot toevoegen</h3>
+            <div class="flex space-x-2">
+              <select 
+                id="spotSelect"
+                class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              >
+                <option value="">Kies een spot...</option>
+                {availableSpots
+                  .filter(spot => !userProfile?.preferredSpots?.includes(spot.name))
+                  .map(spot => (
+                    <option value={spot.name}>{spot.name} ({spot.region})</option>
+                  ))
+                }
+              </select>
+              <button 
+                onclick="addSpot()"
+                class="px-4 py-2 bg-cyan-600 text-white rounded-md hover:bg-cyan-700 transition-colors whitespace-nowrap"
+              >
+                Toevoegen
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 📱 SMS Notificaties -->
+      <div class="bg-white rounded-lg shadow-sm border border-cyan-100 p-4">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+          📱 SMS Notificaties
+        </h2>
+        
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-medium text-gray-800">Wind window alerts</div>
+              <div class="text-sm text-gray-500">Ontvang SMS bij goede wind windows</div>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input 
+                type="checkbox" 
+                checked={userProfile?.notifications || false}
+                class="sr-only peer"
+                onchange="toggleNotifications(this.checked)"
+              >
+              <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cyan-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-600"></div>
+            </label>
+          </div>
+          
+          <div class="text-xs text-gray-500 bg-gray-50 p-3 rounded">
+            <strong>Hoe het werkt:</strong> Je ontvangt automatisch een SMS 48 en 24 uur van tevoren wanneer er een wind window is op een van je favoriete spots.
+          </div>
+        </div>
+      </div>
+
+      <!-- 💾 Opslaan -->
+      <div class="flex justify-end space-x-3">
+        <button class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">
+          Annuleren
+        </button>
+        <button 
+          onclick="saveProfile()"
+          class="px-6 py-2 bg-cyan-600 text-white rounded-md hover:bg-cyan-700 transition-colors"
+        >
+          Opslaan
+        </button>
+      </div>
+
+    </main>
+
+    <!-- JavaScript voor interactiviteit -->
+    <script>
+      // 📝 Profile management functions
+      
+      /**
+       * ➕ Voeg spot toe aan favorieten
+       */
+      function addSpot() {
+        const select = document.getElementById('spotSelect');
+        const spotName = select.value;
+        
+        if (!spotName) {
+          alert('Selecteer eerst een spot');
+          return;
+        }
+        
+        // Voeg spot toe aan UI
+        const spotsContainer = document.querySelector('.space-y-3');
+        const spotCount = spotsContainer.children.length - 1; // -1 voor de "toevoegen" sectie
+        
+        const spotElement = document.createElement('div');
+        spotElement.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg';
+        spotElement.setAttribute('data-spot-name', spotName);
+        spotElement.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <span class="text-lg font-medium text-gray-700">${spotCount + 1}</span>
+            <div>
+              <div class="font-medium text-gray-800">${spotName}</div>
+              <div class="text-sm text-gray-500">Regio onbekend</div>
+            </div>
+          </div>
+          <button 
+            class="text-red-500 hover:text-red-700 text-sm px-2 py-1 rounded hover:bg-red-50 transition-colors"
+            onclick="removeSpot('${spotName}')"
+          >
+            Verwijder
+          </button>
+        `;
+        
+        // Voeg toe voor de "toevoegen" sectie
+        const addSection = spotsContainer.lastElementChild;
+        spotsContainer.insertBefore(spotElement, addSection);
+        
+        // Reset select
+        select.value = '';
+        
+        // Verwijder optie uit dropdown
+        const option = select.querySelector(`option[value="${spotName}"]`);
+        if (option) option.remove();
+        
+        console.log(`✅ Spot toegevoegd: ${spotName}`);
+      }
+      
+      /**
+       * 🗑️ Verwijder spot uit favorieten
+       */
+      function removeSpot(spotName) {
+        const spotElement = document.querySelector(`[data-spot-name="${spotName}"]`);
+        if (spotElement) {
+          spotElement.remove();
+          
+          // Voeg optie terug toe aan dropdown
+          const select = document.getElementById('spotSelect');
+          const option = document.createElement('option');
+          option.value = spotName;
+          option.textContent = `${spotName} (Regio onbekend)`;
+          select.appendChild(option);
+          
+          // Update nummering
+          updateSpotNumbers();
+          
+          console.log(`🗑️ Spot verwijderd: ${spotName}`);
+        }
+      }
+      
+      /**
+       * 🔢 Update spot nummering
+       */
+      function updateSpotNumbers() {
+        const spots = document.querySelectorAll('[data-spot-name]');
+        spots.forEach((spot, index) => {
+          const numberSpan = spot.querySelector('.text-lg');
+          if (numberSpan) {
+            numberSpan.textContent = index + 1;
+          }
+        });
+      }
+      
+      /**
+       * 🔔 Toggle notificaties
+       */
+      function toggleNotifications(enabled) {
+        console.log(`🔔 Notificaties ${enabled ? 'aan' : 'uit'}:`, enabled);
+        // TODO: Update in backend
+      }
+      
+             /**
+        * 💾 Sla profiel op
+        */
+       async function saveProfile() {
+         try {
+           // Verzamel alle favoriete spots
+           const spotElements = document.querySelectorAll('[data-spot-name]');
+           const preferredSpots = Array.from(spotElements).map(el => el.getAttribute('data-spot-name'));
+           
+           // Verzamel andere profielgegevens
+           const profileData = {
+             name: document.querySelector('input[type="text"]').value,
+             phone: document.querySelector('input[type="tel"]').value,
+             preferredSpots: preferredSpots,
+             notifications: document.querySelector('input[type="checkbox"]').checked
+           };
+           
+           console.log('💾 Profiel opslaan:', profileData);
+           
+           // Stuur naar backend API
+           const response = await fetch(`/api/profile?userId=idseleveld`, {
+             method: 'PUT',
+             headers: { 'Content-Type': 'application/json' },
+             body: JSON.stringify(profileData)
+           });
+           
+           const result = await response.json();
+           
+           if (response.ok) {
+             console.log('✅ Profiel succesvol opgeslagen:', result);
+             alert('Profiel succesvol opgeslagen!');
+           } else {
+             console.error('❌ Fout bij opslaan profiel:', result.error);
+             alert(`Fout bij opslaan: ${result.error}`);
+           }
+           
+         } catch (error) {
+           console.error('❌ Netwerk fout bij opslaan profiel:', error);
+           alert('Netwerk fout bij opslaan profiel');
+         }
+       }
+      
+      // 🚀 Initialize
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('👤 Profiel pagina geladen');
+      });
+    </script>
+  </body>
+</html>

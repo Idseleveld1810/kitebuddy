@@ -45,7 +45,7 @@ export default function SearchBar() {
         className="w-full p-2 rounded border"
       />
       {results.length > 0 && (
-        <ul className="absolute z-10 w-full bg-white border rounded shadow">
+        <ul className="absolute z-50 w-full bg-white border rounded shadow-lg max-h-60 overflow-y-auto">
           {results.map((spot, idx) => (
             <li
               key={spot.spotId}

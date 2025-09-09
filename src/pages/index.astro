@@ -1,26 +1,25 @@
 ---
-import SpotMap from "../components/SpotMap.jsx";
-import SearchBar from "../components/SearchBar.jsx";
+import SearchBar from '../components/SearchBar.jsx';
+import SpotMap from '../components/SpotMap.jsx';
+import Header from '../components/Header.jsx';
 ---
 
 <html lang="nl">
   <head>
     <style is:global>
       @import "../styles/global.css";
-      @import "leaflet/dist/leaflet.css";
     </style>
     <meta charset="UTF-8" />
-    <title>Kitebuddy – Kitesurfspots in Nederland</title>
+    <title>Kitebuddy - Kitesurf Voorspelling</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-
   <body class="bg-amber-50 font-sans text-gray-800 min-h-screen">
-    <header class="bg-cyan-700 text-white text-center p-4">
-      <h1 class="text-2xl md:text-3xl font-semibold">Kitebuddy – Alle Kitesurfspots</h1>
-    </header>
+    <Header client:only="react" />
 
-    <main class="p-4 max-w-5xl mx-auto space-y-6">
-      <SearchBar client:only="react" />
+    <main class="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4 lg:py-6 space-y-4 sm:space-y-6">
+      <div class="relative z-40">
+        <SearchBar client:only="react" />
+      </div>
       <SpotMap client:only="react" />
     </main>
   </body>

@@ -32,8 +32,8 @@ export async function fetchForecast(spot = 'Scheveningen') {
   const start = now.toISOString().split('T')[0];
   const end = endDate.toISOString().split('T')[0];
 
-  // Use the original API call without wave height for now
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&hourly=wind_speed_10m,wind_gusts_10m,wind_direction_10m,precipitation&windspeed_unit=kn&start_date=${start}&end_date=${end}&timezone=auto`;
+  // Add comprehensive weather data to the API call
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&hourly=wind_speed_10m,wind_gusts_10m,wind_direction_10m,precipitation,cloud_cover,temperature_2m,weather_code&windspeed_unit=kn&start_date=${start}&end_date=${end}&timezone=auto`;
 
   try {
     const res = await fetch(url);
@@ -59,6 +59,9 @@ export async function fetchForecast(spot = 'Scheveningen') {
         dir: Math.round(data.hourly.wind_direction_10m[i]),
         rain: data.hourly.precipitation[i],
         waveHeight: null, // Placeholder for wave height data
+        cloudCover: data.hourly.cloud_cover ? Math.round(data.hourly.cloud_cover[i]) : null,
+        temperature: data.hourly.temperature_2m ? Math.round(data.hourly.temperature_2m[i]) : null,
+        weatherCode: data.hourly.weather_code ? data.hourly.weather_code[i] : null,
       };
 
       if (!output[dayName]) output[dayName] = [];

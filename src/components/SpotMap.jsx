@@ -1,59 +1,106 @@
-import { useEffect, useState, useRef } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+import React, { useEffect, useRef } from 'react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import spots from '../data/spots_with_wind_top50.json';
 
-export default function SpotMap() {
+// Fix for default markers in Leaflet
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
+
+const SpotMap = () => {
   const mapRef = useRef(null);
-  const [spots, setSpots] = useState([]);
+  const mapInstanceRef = useRef(null);
 
   useEffect(() => {
-    // Init map alleen één keer
-    if (!mapRef.current) {
-      mapRef.current = L.map("map").setView([52.2, 5.3], 7);
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "&copy; OpenStreetMap contributors",
-      }).addTo(mapRef.current);
-    }
+    if (!mapRef.current || mapInstanceRef.current) return;
 
-    fetch("/data/spots_with_wind_top50.json")
-      .then((res) => res.json())
-      .then((data) => setSpots(data));
-  }, []);
+    // Initialize map
+    const map = L.map(mapRef.current).setView([52.3676, 4.9041], 8);
+    mapInstanceRef.current = map;
 
-  useEffect(() => {
-    if (!mapRef.current || spots.length === 0) return;
+    // Add tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+      maxZoom: 18,
+    }).addTo(map);
 
     // Clear existing markers
-    mapRef.current.eachLayer((layer) => {
+    map.eachLayer((layer) => {
       if (layer instanceof L.Marker) {
-        mapRef.current.removeLayer(layer);
+        map.removeLayer(layer);
       }
     });
 
+    // Add markers for each spot
     spots.forEach((spot) => {
       const marker = L.marker([spot.latitude, spot.longitude])
-        .addTo(mapRef.current)
-        .bindPopup(
-          `<b>${spot.name}</b><br/><button id="goto-${spot.spotId}" class="spot-button">Bekijk spot</button>`
-        );
+        .addTo(map)
+        .bindPopup(`
+          <div class="text-center p-2">
+            <h3 class="font-semibold text-lg mb-2">${spot.name}</h3>
+            <button 
+              class="spot-button bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 min-h-[44px] min-w-[44px]"
+              onclick="window.location.href='/${spot.spotId}'"
+            >
+              Bekijk voorspelling
+            </button>
+          </div>
+        `, {
+          closeButton: true,
+          closeOnClick: false,
+          className: 'custom-popup'
+        });
 
-      // Use a more reliable approach for handling popup button clicks
-      marker.on("popupopen", () => {
+      // Ensure proper touch handling
+      marker.on('click', (e) => {
+        e.originalEvent.stopPropagation();
+      });
+
+      // Handle popup open to ensure button is clickable
+      marker.on('popupopen', () => {
         setTimeout(() => {
-          const button = document.getElementById(`goto-${spot.spotId}`);
+          const button = document.querySelector('.spot-button');
           if (button) {
-            button.addEventListener("click", (e) => {
+            button.addEventListener('click', (e) => {
               e.preventDefault();
               e.stopPropagation();
-              console.log(`Navigating to spot: ${spot.spotId}`);
               window.location.href = `/${spot.spotId}`;
             });
           }
         }, 100);
       });
     });
-  }, [spots]);
 
-  return <div id="map" className="h-[500px] w-full rounded-xl shadow" />;
-}
+    // Mobile-specific optimizations
+    if ('ontouchstart' in window) {
+      // Disable double-tap zoom on mobile
+      map.doubleClickZoom.disable();
+      
+      // Increase tap tolerance for better mobile interaction
+      map.options.tap = true;
+      map.options.tapTolerance = 15;
+    }
+
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+    };
+  }, []);
+
+  return (
+    <div 
+      ref={mapRef} 
+      className="w-full h-64 sm:h-80 md:h-96 rounded-lg sm:rounded-xl shadow-sm border border-cyan-100"
+      style={{ zIndex: 1 }}
+    />
+  );
+};
+
+export default SpotMap;
 

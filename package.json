@@ -1,26 +1,45 @@
 {
-  "name": "kite-forecast",
+  "name": "kitebuddy",
+  "version": "1.0.0",
+  "description": "Kitesurf voorspelling voor Nederland",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.3.0",
-    "@astrojs/tailwind": "^6.0.2",
-    "@types/react": "^19.1.9",
-    "@types/react-dom": "^19.1.7",
-    "astro": "^4.0.0",
+    "@astrojs/node": "^8.0.0",
+    "@astrojs/react": "^3.0.0",
+    "@astrojs/tailwind": "^5.0.0",
+    "@supabase/supabase-js": "^2.38.0",
+    "astro": "^4.16.18",
     "chart.js": "^4.4.0",
     "leaflet": "^1.9.4",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "recharts": "^3.1.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^2.8.0"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.0",
-    "tailwindcss": "^3.4.17"
+    "@types/leaflet": "^1.9.8",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "kitesurf",
+    "weather",
+    "forecast",
+    "astro",
+    "react",
+    "supabase"
+  ],
+  "author": "Kitebuddy Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

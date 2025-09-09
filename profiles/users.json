@@ -1,0 +1,38 @@
+{
+  "idseleveld": {
+    "phone": "+31612345678",
+    "preferredSpots": [
+      "Wijk aan Zee",
+      "IJmuiden"
+    ],
+    "windWindow": {
+      "min": 18,
+      "max": 30
+    },
+    "notifications": true,
+    "createdAt": "2025-01-19T10:00:00Z",
+    "lastAlert": null
+  },
+  "kitesurfer_john": {
+    "phone": "+31687654321",
+    "preferredSpots": [
+      "Katwijk",
+      "Scheveningen",
+      "Wijk aan Zee"
+    ],
+    "windWindow": {
+      "min": 12,
+      "max": 35
+    },
+    "notifications": true,
+    "createdAt": "2025-01-19T11:00:00Z",
+    "lastAlert": null
+  },
+  "user_1756321375863": {
+    "phone": "",
+    "preferredSpots": [],
+    "notifications": true,
+    "createdAt": "2025-08-27T19:02:55.864Z",
+    "lastAlert": null
+  }
+}

@@ -6,7 +6,9 @@
       "gust": 5.2,
       "dir": 117,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 11
     },
     {
       "time": "07:00",
@@ -14,7 +16,9 @@
       "gust": 3.9,
       "dir": 82,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 3,
+      "temperature": 10
     },
     {
       "time": "08:00",
@@ -22,387 +26,483 @@
       "gust": 5.6,
       "dir": 106,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 13
     },
     {
       "time": "09:00",
-      "speed": 3.5,
-      "gust": 7.2,
-      "dir": 141,
+      "speed": 1.9,
+      "gust": 4.9,
+      "dir": 120,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 48,
+      "temperature": 16
     },
     {
       "time": "10:00",
-      "speed": 2.3,
-      "gust": 7.2,
-      "dir": 153,
+      "speed": 1.9,
+      "gust": 5.6,
+      "dir": 166,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 22,
+      "temperature": 19
     },
     {
       "time": "11:00",
       "speed": 1,
-      "gust": 6.2,
-      "dir": 244,
+      "gust": 5.6,
+      "dir": 234,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 21
     },
     {
       "time": "12:00",
-      "speed": 2.1,
-      "gust": 8.2,
-      "dir": 257,
+      "speed": 3.3,
+      "gust": 9.1,
+      "dir": 281,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 51,
+      "temperature": 22
     },
     {
       "time": "13:00",
-      "speed": 3.5,
-      "gust": 9.9,
-      "dir": 282,
+      "speed": 2.7,
+      "gust": 8.9,
+      "dir": 266,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 100,
+      "temperature": 23
     },
     {
       "time": "14:00",
-      "speed": 3.5,
-      "gust": 10.1,
-      "dir": 281,
+      "speed": 1.6,
+      "gust": 8.6,
+      "dir": 265,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 100,
+      "temperature": 23
     },
     {
       "time": "15:00",
-      "speed": 1.4,
-      "gust": 9.7,
-      "dir": 277,
+      "speed": 1.7,
+      "gust": 7.2,
+      "dir": 309,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 85,
+      "temperature": 24
     },
     {
       "time": "16:00",
-      "speed": 2.1,
-      "gust": 8.4,
-      "dir": 278,
+      "speed": 2.3,
+      "gust": 8.2,
+      "dir": 284,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 99,
+      "temperature": 24
     },
     {
       "time": "17:00",
-      "speed": 3.1,
-      "gust": 8,
-      "dir": 317,
+      "speed": 3.9,
+      "gust": 9.3,
+      "dir": 294,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 81,
+      "temperature": 24
     },
     {
       "time": "18:00",
-      "speed": 3.9,
-      "gust": 10.3,
-      "dir": 338,
+      "speed": 4.1,
+      "gust": 9.3,
+      "dir": 327,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 24
     },
     {
       "time": "19:00",
-      "speed": 4.5,
-      "gust": 8.9,
-      "dir": 349,
+      "speed": 4.3,
+      "gust": 8.7,
+      "dir": 10,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 23
     },
     {
       "time": "20:00",
-      "speed": 4.7,
-      "gust": 8.9,
-      "dir": 25,
+      "speed": 4.5,
+      "gust": 8.2,
+      "dir": 28,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 22
     },
     {
       "time": "21:00",
       "speed": 4.5,
-      "gust": 8.6,
-      "dir": 48,
+      "gust": 7.6,
+      "dir": 53,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 2,
+      "temperature": 20
     },
     {
       "time": "22:00",
-      "speed": 4.7,
-      "gust": 7.4,
-      "dir": 42,
+      "speed": 4.5,
+      "gust": 7,
+      "dir": 51,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 26,
+      "temperature": 18
     }
   ],
   "dinsdag": [
     {
       "time": "06:00",
       "speed": 3.5,
-      "gust": 7.4,
-      "dir": 82,
+      "gust": 9.1,
+      "dir": 61,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 29,
+      "temperature": 16
     },
     {
       "time": "07:00",
-      "speed": 3.5,
-      "gust": 7,
-      "dir": 50,
+      "speed": 5.1,
+      "gust": 8.2,
+      "dir": 75,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 100,
+      "temperature": 15
     },
     {
       "time": "08:00",
-      "speed": 5.2,
-      "gust": 9.5,
-      "dir": 79,
+      "speed": 4.7,
+      "gust": 9.9,
+      "dir": 87,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 85,
+      "temperature": 17
     },
     {
       "time": "09:00",
-      "speed": 6.4,
-      "gust": 11.7,
-      "dir": 99,
+      "speed": 7.2,
+      "gust": 15.6,
+      "dir": 109,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 100,
+      "temperature": 19
     },
     {
       "time": "10:00",
-      "speed": 6.4,
-      "gust": 17.3,
-      "dir": 76,
+      "speed": 8,
+      "gust": 18.7,
+      "dir": 98,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 100,
+      "temperature": 20
     },
     {
       "time": "11:00",
-      "speed": 6.6,
-      "gust": 12.8,
-      "dir": 84,
+      "speed": 7.6,
+      "gust": 14.4,
+      "dir": 113,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 100,
+      "temperature": 20
     },
     {
       "time": "12:00",
-      "speed": 5.6,
+      "speed": 6.2,
       "gust": 13,
-      "dir": 87,
+      "dir": 89,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 100,
+      "temperature": 21
     },
     {
       "time": "13:00",
       "speed": 5.8,
-      "gust": 13.2,
-      "dir": 88,
+      "gust": 13.4,
+      "dir": 44,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 94,
+      "temperature": 22
     },
     {
       "time": "14:00",
-      "speed": 6.8,
-      "gust": 13.4,
-      "dir": 98,
+      "speed": 5.6,
+      "gust": 13.2,
+      "dir": 75,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 48,
+      "temperature": 24
     },
     {
       "time": "15:00",
-      "speed": 5.2,
-      "gust": 13.4,
-      "dir": 96,
+      "speed": 6,
+      "gust": 12.4,
+      "dir": 92,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 10,
+      "temperature": 27
     },
     {
       "time": "16:00",
-      "speed": 5.4,
-      "gust": 11.9,
-      "dir": 88,
+      "speed": 6.6,
+      "gust": 13.2,
+      "dir": 108,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 7,
+      "temperature": 28
     },
     {
       "time": "17:00",
-      "speed": 5.1,
-      "gust": 12.2,
-      "dir": 101,
+      "speed": 5.8,
+      "gust": 13.2,
+      "dir": 91,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 21,
+      "temperature": 28
     },
     {
       "time": "18:00",
-      "speed": 4.7,
-      "gust": 11.1,
-      "dir": 80,
+      "speed": 5.8,
+      "gust": 11.7,
+      "dir": 73,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 39,
+      "temperature": 28
     },
     {
       "time": "19:00",
-      "speed": 5.6,
-      "gust": 10.7,
-      "dir": 67,
+      "speed": 6,
+      "gust": 11.9,
+      "dir": 63,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 96,
+      "temperature": 27
     },
     {
       "time": "20:00",
-      "speed": 4.5,
-      "gust": 10.7,
-      "dir": 43,
+      "speed": 7,
+      "gust": 12.1,
+      "dir": 61,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 17,
+      "temperature": 25
     },
     {
       "time": "21:00",
-      "speed": 6.4,
-      "gust": 10.5,
-      "dir": 47,
+      "speed": 8,
+      "gust": 13.4,
+      "dir": 67,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 62,
+      "temperature": 24
     },
     {
       "time": "22:00",
-      "speed": 6.6,
-      "gust": 11.7,
-      "dir": 63,
+      "speed": 7,
+      "gust": 13.4,
+      "dir": 70,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 47,
+      "temperature": 23
     }
   ],
   "woensdag": [
     {
       "time": "06:00",
-      "speed": 4.1,
-      "gust": 7,
-      "dir": 66,
+      "speed": 4.3,
+      "gust": 6.2,
+      "dir": 83,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 17
     },
     {
       "time": "07:00",
-      "speed": 3.7,
-      "gust": 6.2,
-      "dir": 62,
+      "speed": 3.3,
+      "gust": 6,
+      "dir": 78,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 17
     },
     {
       "time": "08:00",
-      "speed": 3.1,
-      "gust": 5.6,
-      "dir": 56,
+      "speed": 2.3,
+      "gust": 4.7,
+      "dir": 130,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 19
     },
     {
       "time": "09:00",
-      "speed": 2.3,
-      "gust": 6.4,
-      "dir": 80,
+      "speed": 2.7,
+      "gust": 6.2,
+      "dir": 221,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 35,
+      "temperature": 21
     },
     {
       "time": "10:00",
-      "speed": 1.6,
-      "gust": 5.2,
-      "dir": 24,
+      "speed": 3.7,
+      "gust": 8.4,
+      "dir": 243,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 22
     },
     {
       "time": "11:00",
-      "speed": 3.1,
-      "gust": 8,
-      "dir": 17,
+      "speed": 4.1,
+      "gust": 9.3,
+      "dir": 246,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 23
     },
     {
       "time": "12:00",
       "speed": 3.7,
-      "gust": 9.5,
-      "dir": 47,
+      "gust": 9.3,
+      "dir": 250,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 24
     },
     {
       "time": "13:00",
-      "speed": 3.5,
+      "speed": 4.3,
       "gust": 10.3,
-      "dir": 101,
+      "dir": 265,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 0,
+      "temperature": 25
     },
     {
       "time": "14:00",
-      "speed": 2.5,
+      "speed": 3.3,
       "gust": 9.9,
-      "dir": 212,
+      "dir": 269,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 6,
+      "temperature": 26
     },
     {
       "time": "15:00",
-      "speed": 4.5,
-      "gust": 11.5,
-      "dir": 263,
+      "speed": 2.1,
+      "gust": 8.4,
+      "dir": 255,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 25,
+      "temperature": 27
     },
     {
       "time": "16:00",
-      "speed": 3.9,
-      "gust": 11.5,
-      "dir": 257,
+      "speed": 6.4,
+      "gust": 12.2,
+      "dir": 247,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 100,
+      "temperature": 25
     },
     {
       "time": "17:00",
-      "speed": 4.5,
-      "gust": 10.1,
-      "dir": 270,
+      "speed": 2.7,
+      "gust": 12.2,
+      "dir": 288,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 100,
+      "temperature": 25
     },
     {
       "time": "18:00",
-      "speed": 3.1,
-      "gust": 9.5,
-      "dir": 252,
+      "speed": 1.2,
+      "gust": 9.1,
+      "dir": 297,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 98,
+      "temperature": 26
     },
     {
       "time": "19:00",
-      "speed": 5.6,
-      "gust": 13.2,
-      "dir": 292,
+      "speed": 4.5,
+      "gust": 9.3,
+      "dir": 303,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 15,
+      "temperature": 26
     },
     {
       "time": "20:00",
-      "speed": 2.3,
-      "gust": 10.9,
-      "dir": 306,
+      "speed": 6.6,
+      "gust": 12.6,
+      "dir": 300,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 3,
+      "temperature": 24
     },
     {
       "time": "21:00",
-      "speed": 4.1,
-      "gust": 7.4,
-      "dir": 275,
+      "speed": 1.7,
+      "gust": 15.6,
+      "dir": 297,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 100,
+      "temperature": 22
     },
     {
       "time": "22:00",
@@ -410,7 +510,9 @@
       "gust": 5.1,
       "dir": 270,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 75,
+      "temperature": 22
     }
   ],
   "donderdag": [
@@ -420,7 +522,9 @@
       "gust": 7,
       "dir": 180,
       "rain": 0.2,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 72,
+      "temperature": 21
     },
     {
       "time": "07:00",
@@ -428,7 +532,9 @@
       "gust": 8,
       "dir": 110,
       "rain": 0.2,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 62,
+      "temperature": 21
     },
     {
       "time": "08:00",
@@ -436,7 +542,9 @@
       "gust": 9.1,
       "dir": 106,
       "rain": 0.2,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 52,
+      "temperature": 21
     },
     {
       "time": "09:00",
@@ -444,7 +552,9 @@
       "gust": 10.9,
       "dir": 121,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 39,
+      "temperature": 22
     },
     {
       "time": "10:00",
@@ -452,7 +562,9 @@
       "gust": 12.8,
       "dir": 147,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 24,
+      "temperature": 24
     },
     {
       "time": "11:00",
@@ -460,7 +572,9 @@
       "gust": 14.2,
       "dir": 169,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 14,
+      "temperature": 25
     },
     {
       "time": "12:00",
@@ -468,7 +582,9 @@
       "gust": 14.8,
       "dir": 185,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 11,
+      "temperature": 26
     },
     {
       "time": "13:00",
@@ -476,7 +592,9 @@
       "gust": 14.8,
       "dir": 204,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 12,
+      "temperature": 27
     },
     {
       "time": "14:00",
@@ -484,7 +602,9 @@
       "gust": 14.4,
       "dir": 224,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 13,
+      "temperature": 27
     },
     {
       "time": "15:00",
@@ -492,7 +612,9 @@
       "gust": 13.6,
       "dir": 243,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 9,
+      "temperature": 27
     },
     {
       "time": "16:00",
@@ -500,7 +622,9 @@
       "gust": 12.8,
       "dir": 272,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 5,
+      "temperature": 27
     },
     {
       "time": "17:00",
@@ -508,7 +632,9 @@
       "gust": 12.1,
       "dir": 295,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 6,
+      "temperature": 27
     },
     {
       "time": "18:00",
@@ -516,7 +642,9 @@
       "gust": 11.9,
       "dir": 302,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 19,
+      "temperature": 26
     },
     {
       "time": "19:00",
@@ -524,7 +652,9 @@
       "gust": 11.9,
       "dir": 304,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 38,
+      "temperature": 25
     },
     {
       "time": "20:00",
@@ -532,7 +662,9 @@
       "gust": 12.2,
       "dir": 304,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 49,
+      "temperature": 24
     },
     {
       "time": "21:00",
@@ -540,7 +672,9 @@
       "gust": 13.4,
       "dir": 305,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 44,
+      "temperature": 23
     },
     {
       "time": "22:00",
@@ -548,7 +682,9 @@
       "gust": 14.8,
       "dir": 305,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 30,
+      "temperature": 22
     }
   ],
   "vrijdag": [
@@ -558,7 +694,9 @@
       "gust": 6,
       "dir": 266,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 3,
+      "temperature": 18
     },
     {
       "time": "07:00",
@@ -566,7 +704,9 @@
       "gust": 7.4,
       "dir": 245,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 8,
+      "temperature": 19
     },
     {
       "time": "08:00",
@@ -574,7 +714,9 @@
       "gust": 8.4,
       "dir": 232,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 11,
+      "temperature": 20
     },
     {
       "time": "09:00",
@@ -582,7 +724,9 @@
       "gust": 8,
       "dir": 229,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 12,
+      "temperature": 21
     },
     {
       "time": "10:00",
@@ -590,7 +734,9 @@
       "gust": 7,
       "dir": 235,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 11,
+      "temperature": 22
     },
     {
       "time": "11:00",
@@ -598,7 +744,9 @@
       "gust": 7.4,
       "dir": 241,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 10,
+      "temperature": 24
     },
     {
       "time": "12:00",
@@ -606,7 +754,9 @@
       "gust": 10.5,
       "dir": 252,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 10,
+      "temperature": 25
     },
     {
       "time": "13:00",
@@ -614,7 +764,9 @@
       "gust": 15,
       "dir": 266,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 9,
+      "temperature": 26
     },
     {
       "time": "14:00",
@@ -622,7 +774,9 @@
       "gust": 18.5,
       "dir": 278,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 9,
+      "temperature": 26
     },
     {
       "time": "15:00",
@@ -630,7 +784,9 @@
       "gust": 20,
       "dir": 295,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 9,
+      "temperature": 26
     },
     {
       "time": "16:00",
@@ -638,7 +794,9 @@
       "gust": 20.6,
       "dir": 315,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 8,
+      "temperature": 25
     },
     {
       "time": "17:00",
@@ -646,7 +804,9 @@
       "gust": 20.4,
       "dir": 327,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 8,
+      "temperature": 25
     },
     {
       "time": "18:00",
@@ -654,7 +814,9 @@
       "gust": 19,
       "dir": 333,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 7,
+      "temperature": 23
     },
     {
       "time": "19:00",
@@ -662,7 +824,9 @@
       "gust": 16.9,
       "dir": 336,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 7,
+      "temperature": 22
     },
     {
       "time": "20:00",
@@ -670,7 +834,9 @@
       "gust": 15.2,
       "dir": 341,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 8,
+      "temperature": 21
     },
     {
       "time": "21:00",
@@ -678,7 +844,9 @@
       "gust": 14.8,
       "dir": 346,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 13,
+      "temperature": 20
     },
     {
       "time": "22:00",
@@ -686,7 +854,9 @@
       "gust": 15,
       "dir": 352,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 19,
+      "temperature": 19
     }
   ],
   "zaterdag": [
@@ -696,7 +866,9 @@
       "gust": 12.1,
       "dir": 356,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 39,
+      "temperature": 18
     },
     {
       "time": "07:00",
@@ -704,7 +876,9 @@
       "gust": 12.1,
       "dir": 358,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 43,
+      "temperature": 18
     },
     {
       "time": "08:00",
@@ -712,7 +886,9 @@
       "gust": 12.2,
       "dir": 359,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 48,
+      "temperature": 18
     },
     {
       "time": "09:00",
@@ -720,7 +896,9 @@
       "gust": 12.8,
       "dir": 360,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 58,
+      "temperature": 18
     },
     {
       "time": "10:00",
@@ -728,7 +906,9 @@
       "gust": 13.8,
       "dir": 360,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 70,
+      "temperature": 18
     },
     {
       "time": "11:00",
@@ -736,7 +916,9 @@
       "gust": 14.8,
       "dir": 359,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 74,
+      "temperature": 19
     },
     {
       "time": "12:00",
@@ -744,7 +926,9 @@
       "gust": 15.6,
       "dir": 353,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 63,
+      "temperature": 19
     },
     {
       "time": "13:00",
@@ -752,7 +936,9 @@
       "gust": 16.3,
       "dir": 346,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 45,
+      "temperature": 20
     },
     {
       "time": "14:00",
@@ -760,7 +946,9 @@
       "gust": 17.1,
       "dir": 342,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 32,
+      "temperature": 20
     },
     {
       "time": "15:00",
@@ -768,7 +956,9 @@
       "gust": 17.7,
       "dir": 343,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 30,
+      "temperature": 20
     },
     {
       "time": "16:00",
@@ -776,7 +966,9 @@
       "gust": 18.1,
       "dir": 347,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 33,
+      "temperature": 20
     },
     {
       "time": "17:00",
@@ -784,7 +976,9 @@
       "gust": 18.5,
       "dir": 350,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 37,
+      "temperature": 19
     },
     {
       "time": "18:00",
@@ -792,7 +986,9 @@
       "gust": 19,
       "dir": 352,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 43,
+      "temperature": 19
     },
     {
       "time": "19:00",
@@ -800,7 +996,9 @@
       "gust": 19.8,
       "dir": 355,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 51,
+      "temperature": 18
     },
     {
       "time": "20:00",
@@ -808,7 +1006,9 @@
       "gust": 20,
       "dir": 357,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 55,
+      "temperature": 17
     },
     {
       "time": "21:00",
@@ -816,7 +1016,9 @@
       "gust": 19.6,
       "dir": 358,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 50,
+      "temperature": 17
     },
     {
       "time": "22:00",
@@ -824,7 +1026,9 @@
       "gust": 18.9,
       "dir": 359,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 42,
+      "temperature": 17
     }
   ],
   "zondag": [
@@ -834,7 +1038,9 @@
       "gust": 12.8,
       "dir": 353,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 57,
+      "temperature": 16
     },
     {
       "time": "07:00",
@@ -842,7 +1048,9 @@
       "gust": 12.4,
       "dir": 354,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 57,
+      "temperature": 16
     },
     {
       "time": "08:00",
@@ -850,7 +1058,9 @@
       "gust": 12.2,
       "dir": 354,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 55,
+      "temperature": 16
     },
     {
       "time": "09:00",
@@ -858,7 +1068,9 @@
       "gust": 12.4,
       "dir": 354,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 51,
+      "temperature": 17
     },
     {
       "time": "10:00",
@@ -866,7 +1078,9 @@
       "gust": 13,
       "dir": 354,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 45,
+      "temperature": 17
     },
     {
       "time": "11:00",
@@ -874,7 +1088,9 @@
       "gust": 13.6,
       "dir": 356,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 40,
+      "temperature": 18
     },
     {
       "time": "12:00",
@@ -882,7 +1098,9 @@
       "gust": 14.4,
       "dir": 357,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 35,
+      "temperature": 18
     },
     {
       "time": "13:00",
@@ -890,7 +1108,9 @@
       "gust": 15.2,
       "dir": 359,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 31,
+      "temperature": 19
     },
     {
       "time": "14:00",
@@ -898,7 +1118,9 @@
       "gust": 15.7,
       "dir": 360,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 29,
+      "temperature": 19
     },
     {
       "time": "15:00",
@@ -906,7 +1128,9 @@
       "gust": 16.1,
       "dir": 3,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 32,
+      "temperature": 19
     },
     {
       "time": "16:00",
@@ -914,7 +1138,9 @@
       "gust": 16.5,
       "dir": 7,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 38,
+      "temperature": 19
     },
     {
       "time": "17:00",
@@ -922,7 +1148,9 @@
       "gust": 16.7,
       "dir": 9,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 44,
+      "temperature": 18
     },
     {
       "time": "18:00",
@@ -930,7 +1158,9 @@
       "gust": 16.9,
       "dir": 11,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 50,
+      "temperature": 18
     },
     {
       "time": "19:00",
@@ -938,7 +1168,9 @@
       "gust": 17.1,
       "dir": 13,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 55,
+      "temperature": 18
     },
     {
       "time": "20:00",
@@ -946,7 +1178,9 @@
       "gust": 17.1,
       "dir": 15,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 57,
+      "temperature": 17
     },
     {
       "time": "21:00",
@@ -954,7 +1188,9 @@
       "gust": 17.1,
       "dir": 16,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 52,
+      "temperature": 17
     },
     {
       "time": "22:00",
@@ -962,7 +1198,9 @@
       "gust": 16.9,
       "dir": 14,
       "rain": 0,
-      "waveHeight": null
+      "waveHeight": null,
+      "cloudCover": 44,
+      "temperature": 17
     }
   ]
 }
