@@ -23,6 +23,21 @@ import Header from '../components/Header.jsx';
       </div>
       <SpotMap client:only="react" />
     </main>
+
+    <!-- Error catcher -->
+    <script>
+      window.addEventListener('error', e => {
+        const box = document.createElement('pre');
+        box.style.cssText = 'position:fixed;left:0;bottom:0;max-height:40vh;width:100%;background:#200;color:#fff;padding:12px;overflow:auto;z-index:99999;font:12px/1.4 monospace';
+        box.textContent = 'Error: ' + (e.error?.stack || e.message);
+        document.body.appendChild(box);
+      });
+      window.addEventListener('unhandledrejection', e => {
+        const box = document.createElement('pre');
+        box.style.cssText = 'position:fixed;left:0;bottom:0;max-height:40vh;width:100%;background:#220;color:#fff;padding:12px;overflow:auto;z-index:99999;font:12px/1.4 monospace';
+        box.textContent = 'Unhandled promise: ' + (e.reason?.stack || e.reason);
+        document.body.appendChild(box);
+      });
+    </script>
   </body>
 </html>
-
