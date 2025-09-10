@@ -9,7 +9,7 @@ let forecastData = {};
 let source = 'openmeteo';
 
 try {
-  const apiUrl = `http://localhost:4321/api/forecast?spotId=${spotId}`;
+  const apiUrl = `/api/forecast?spotId=${spotId}`;
   const response = await fetch(apiUrl);
   
   if (response.ok) {
