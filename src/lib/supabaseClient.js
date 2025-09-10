@@ -14,8 +14,18 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
 const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
+// ✅ Debug: Log environment variables
+console.log('🔍 Supabase config check:', {
+  hasUrl: !!supabaseUrl,
+  hasKey: !!supabaseKey,
+  url: supabaseUrl ? supabaseUrl.substring(0, 30) + '...' : 'undefined'
+});
+
 // ✅ Create Supabase client (only if configuration is available)
 export const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
+
+// ✅ Debug: Log client creation
+console.log('🔍 Supabase client created:', !!supabase);
 
 // 💡 Gebruik dit bestand overal in je app met:
 // import { supabase } from '../lib/supabaseClient';
