@@ -3,7 +3,7 @@
  */
 
 // Threshold for kiteable conditions (average wind speed)
-const KITEABLE_THRESHOLD = 8;
+const KITEABLE_THRESHOLD = 16;
 
 /**
  * Find all wind windows in a day's hourly data

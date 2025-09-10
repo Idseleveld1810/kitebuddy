@@ -1,15 +1,6 @@
 ---
 import WeeklyOverview from '../components/WeeklyOverview.jsx';
-import spots from "../data/spots_with_wind_top50.json"; // deze moet in src/data blijven voor build
-import fs from 'fs';
-import path from 'path';
-
-// ✅ Tijdens build: alle mogelijke spotId's doorgeven aan Astro
-export async function getStaticPaths() {
-  return spots.map((spot) => ({
-    params: { spotId: spot.spotId },
-  }));
-}
+import spots from "../data/spots_with_wind_top50.json";
 
 const { spotId } = Astro.params;
 
@@ -35,25 +26,20 @@ try {
   
   // Fallback to file-based data
   try {
-    const forecastPath = path.join(process.cwd(), 'public', 'data', 'forecastData', `${spotId}.json`);
-    console.log(`Reading forecast data from: ${forecastPath}`);
-    
-    if (fs.existsSync(forecastPath)) {
-      const fileContent = fs.readFileSync(forecastPath, 'utf8');
-      forecastData = JSON.parse(fileContent);
-      source = 'file';
-      console.log(`Loaded file data for ${spotId}:`, Object.keys(forecastData));
-    } else {
-      console.error(`Forecast file not found: ${forecastPath}`);
-    }
+    const forecastPath = new URL(`../../public/data/forecastData/${spotId}.json`, import.meta.url);
+    const fileContent = await fetch(forecastPath).then(r => r.text());
+    forecastData = JSON.parse(fileContent);
+    source = 'file';
+    console.log(`Loaded file data for ${spotId}:`, Object.keys(forecastData));
   } catch (fileError) {
-    console.error(`No file data available for ${spotId}:`, fileError);
+    console.error(`Failed to load data for ${spotId}:`, fileError);
+    forecastData = {};
   }
 }
 
-// Get the proper capitalized spot name
-const spotData = spots.find(spot => spot.spotId === spotId);
-const spotName = spotData ? spotData.name : spotId;
+// Find spot details
+const spot = spots.find(s => s.spotId === spotId);
+const spotName = spot ? spot.name : spotId;
 ---
 
 <html lang="nl">
@@ -67,23 +53,24 @@ const spotName = spotData ? spotData.name : spotId;
   </head>
   <body class="bg-amber-50 font-sans text-gray-800 min-h-screen">
     <header class="bg-cyan-700 text-white text-center p-3 sm:p-4">
-      <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold leading-tight">
-        Kitesurf Voorspelling – {spotName}
-      </h1>
-      <a href="/" class="text-xs sm:text-sm text-cyan-200 hover:text-white mt-2 inline-block min-h-[44px] min-w-[44px] flex items-center justify-center">
-        ← Terug naar kaart
-      </a>
+      <div class="flex justify-between items-center mb-2">
+        <div class="flex-1"></div>
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-semibold px-4">
+          Kitesurf Voorspelling – {spotName}
+        </h1>
+        <div class="flex-1 flex justify-end">
+          <a 
+            href="/" 
+            class="text-sm text-cyan-200 hover:text-white transition-colors px-2 py-1 rounded hover:bg-cyan-600"
+          >
+            ← Terug naar kaart
+          </a>
+        </div>
+      </div>
     </header>
 
-    <main class="w-full py-3 sm:py-4 lg:py-6">
-      {Object.keys(forecastData).length > 0 ? (
-        <WeeklyOverview client:only="react" forecastData={forecastData} spotId={spotId} source={source} />
-      ) : (
-        <div class="w-full max-w-2xl mx-auto px-3 sm:px-4 text-center py-8">
-          <p class="text-gray-600 text-sm sm:text-base">Geen forecast data beschikbaar voor {spotName}</p>
-          <p class="text-xs sm:text-sm text-gray-500 mt-2">Controleer of het bestand /data/forecastData/{spotId}.json bestaat</p>
-        </div>
-      )}
+    <main class="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4 lg:py-6 space-y-4 sm:space-y-6">
+      <WeeklyOverview client:only="react" forecastData={forecastData} spotId={spotId} source={source} />
     </main>
   </body>
 </html>
