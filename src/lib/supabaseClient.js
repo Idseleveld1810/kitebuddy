@@ -22,10 +22,20 @@ console.log('🔍 Supabase config check:', {
 });
 
 // ✅ Create Supabase client (only if configuration is available)
-export const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
+let supabase = null;
 
-// ✅ Debug: Log client creation
-console.log('🔍 Supabase client created:', !!supabase);
+// ✅ Lazy initialization function
+function getSupabaseClient() {
+  if (!supabase && supabaseUrl && supabaseKey) {
+    console.log('🔍 Creating Supabase client...');
+    supabase = createClient(supabaseUrl, supabaseKey);
+    console.log('✅ Supabase client created successfully');
+  }
+  return supabase;
+}
+
+// ✅ Export the lazy client
+export { getSupabaseClient as supabase };
 
 // 💡 Gebruik dit bestand overal in je app met:
 // import { supabase } from '../lib/supabaseClient';
