@@ -76,7 +76,6 @@ const spotName = spot ? spot.name : spotId;
     </header>
 
     <main class="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4 lg:py-6 space-y-4 sm:space-y-6">
-                  <DebugData client:only="react" forecastData={forecastData} spotId={spotId} />
                   <WeeklyOverview client:only="react" forecastData={forecastData} spotId={spotId} source={source} />
     </main>
   </body>

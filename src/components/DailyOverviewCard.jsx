@@ -36,17 +36,15 @@ const DailyOverviewCard = ({
   // Bepaal weerbeeld
   const weatherSummary = getDailyWeatherSummary(hours);
   
-  // Debug: toon data structuur in console
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`🌤️ DailyOverviewCard voor ${day}:`, {
-      hoursCount: hours.length,
-      sampleHours: hours.slice(0, 2),
-      weatherSummary,
-      hasCloudCover: hours.some(h => h.cloudCover !== undefined),
-      hasTemperature: hours.some(h => h.temperature !== undefined),
-      hasWeatherCode: hours.some(h => h.weatherCode !== undefined)
-    });
-  }
+  // Debug: toon data structuur in console (altijd voor nu)
+  console.log(`🌤️ DailyOverviewCard voor ${day}:`, {
+    hoursCount: hours.length,
+    sampleHours: hours.slice(0, 2),
+    weatherSummary,
+    hasCloudCover: hours.some(h => h.cloudCover !== undefined),
+    hasTemperature: hours.some(h => h.temperature !== undefined),
+    hasWeatherCode: hours.some(h => h.weatherCode !== undefined)
+  });
 
   // Handle multiple wind windows display
   const renderWindWindow = () => {
