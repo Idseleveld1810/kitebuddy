@@ -10,8 +10,13 @@ let forecastData = {};
 let source = 'openmeteo';
 
 try {
-  const apiUrl = `/api/forecast?spotId=${spotId}`;
+  // Use absolute URL for server-side fetch in Astro
+  const baseUrl = Astro.url.origin;
+  const apiUrl = `${baseUrl}/api/forecast?spotId=${spotId}`;
+  console.log(`🔍 Fetching from: ${apiUrl}`);
+  
   const response = await fetch(apiUrl);
+  console.log(`📡 Response status: ${response.status}`);
   
   if (response.ok) {
     const apiData = await response.json();
@@ -19,11 +24,11 @@ try {
     source = apiData.source || 'openmeteo';
     console.log(`✅ Loaded Open-Meteo data for ${spotId}:`, Object.keys(forecastData));
   } else {
-    console.log(`Open-Meteo API failed for ${spotId}, falling back to file data`);
+    console.log(`❌ Open-Meteo API failed for ${spotId} (${response.status}), falling back to file data`);
     throw new Error('API failed');
   }
 } catch (error) {
-  console.log(`Falling back to file data for ${spotId}`);
+  console.log(`⚠️ Falling back to file data for ${spotId}:`, error.message);
   
   // Fallback to file-based data
   try {
