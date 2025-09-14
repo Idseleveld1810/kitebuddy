@@ -31,8 +31,12 @@ const dateObj = new Date(date);
 const dayNames = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
 const dayName = dayNames[dateObj.getDay()];
 
-// Get hours for this specific day
-const hours = forecastData[dayName] || [];
+// Get hours for this specific day and remove duplicates
+const rawHours = forecastData[dayName] || [];
+const hours = rawHours.filter((hour, index, arr) => {
+  // Remove duplicates based on time
+  return arr.findIndex(h => h.time === hour.time) === index;
+});
 
 // Calculate chart data
 const maxWind = hours.length > 0 ? Math.max(...hours.map(h => Math.round(h.speed || 0))) : 0;
@@ -43,14 +47,14 @@ const yScale = 250 / scale; // Use 250px for the chart area
 
 // Generate smooth curves using path with cubic bezier
 const windPoints = hours.map((hour, index) => {
-  const x = 60 + (index * (740 / (hours.length - 1)));
+  const x = 60 + (index * (780 / (hours.length - 1))); // More space for labels
   const windSpeed = Math.round(hour.speed || 0);
   const y = 270 - (windSpeed * yScale);
   return { x, y };
 });
 
 const gustPoints = hours.map((hour, index) => {
-  const x = 60 + (index * (740 / (hours.length - 1)));
+  const x = 60 + (index * (780 / (hours.length - 1))); // More space for labels
   const windGust = Math.round(hour.gust || hour.speed || 0);
   const y = 270 - (windGust * yScale);
   return { x, y };
@@ -122,7 +126,7 @@ const formattedDate = dateObj.toLocaleDateString('nl-NL', {
           <!-- Wind Chart -->
           <div class="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-cyan-100">
             <div class="relative h-64 sm:h-80">
-              <svg class="w-full h-full" viewBox="0 0 800 300">
+              <svg class="w-full h-full" viewBox="0 0 900 300">
                 <!-- Grid lines -->
                 <defs>
                   <pattern id="grid" width="40" height="30" patternUnits="userSpaceOnUse">
@@ -157,11 +161,12 @@ const formattedDate = dateObj.toLocaleDateString('nl-NL', {
                 
                 <!-- Time labels -->
                 {hours.map((hour, index) => {
-                  // Show every 2nd hour
-                  if (index % 2 === 0) {
-                    const x = 60 + (index * (740 / (hours.length - 1)));
+                  // Show every 2nd hour, but ensure we don't have duplicates
+                  const shouldShow = index % 2 === 0;
+                  if (shouldShow) {
+                    const x = 60 + (index * (780 / (hours.length - 1))); // More space for labels
                     return (
-                      <text x={x} y="295" class="text-xs fill-gray-600" text-anchor="middle">
+                      <text key={index} x={x} y="295" class="text-xs fill-gray-600" text-anchor="middle">
                         {hour.time}
                       </text>
                     );
