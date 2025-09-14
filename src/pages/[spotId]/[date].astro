@@ -157,7 +157,8 @@ const formattedDate = dateObj.toLocaleDateString('nl-NL', {
                 
                 <!-- Time labels -->
                 {hours.map((hour, index) => {
-                  if (index % 2 === 0) { // Show every 2nd hour
+                  // Show every 2nd hour, but always show the last hour (22:00)
+                  if (index % 2 === 0 || index === hours.length - 1) {
                     const x = 60 + (index * (740 / (hours.length - 1)));
                     return (
                       <text x={x} y="295" class="text-xs fill-gray-600" text-anchor="middle">
