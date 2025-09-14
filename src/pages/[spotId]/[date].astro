@@ -1,0 +1,210 @@
+---
+import spots from "../../data/spots_with_wind_top50.json";
+
+const { spotId, date } = Astro.params;
+
+// Get forecast data for the specific date
+let forecastData = {};
+let source = 'openmeteo';
+
+try {
+  const baseUrl = Astro.url.origin;
+  const apiUrl = `${baseUrl}/api/forecast?spotId=${spotId}`;
+  const response = await fetch(apiUrl);
+
+  if (response.ok) {
+    const apiData = await response.json();
+    forecastData = apiData.forecast || {};
+    source = apiData.source || 'openmeteo';
+  }
+} catch (error) {
+  console.error(`Failed to load data for ${spotId}:`, error);
+  forecastData = {};
+}
+
+// Find spot details
+const spot = spots.find(s => s.spotId === spotId);
+const spotName = spot ? spot.name : spotId;
+
+// Convert date to day name for data lookup
+const dateObj = new Date(date);
+const dayNames = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
+const dayName = dayNames[dateObj.getDay()];
+
+// Get hours for this specific day
+const hours = forecastData[dayName] || [];
+
+// Format date for display
+const formattedDate = dateObj.toLocaleDateString('nl-NL', {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<html lang="nl">
+  <head>
+    <style is:global>
+      @import "../../styles/global.css";
+    </style>
+    <meta charset="UTF-8" />
+    <title>Kitesurf Details – {spotName} – {formattedDate}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="bg-amber-50 font-sans text-gray-800 min-h-screen">
+    <header class="bg-cyan-700 text-white text-center p-3 sm:p-4">
+      <div class="flex justify-between items-center mb-2">
+        <a href="/" class="text-sm text-cyan-200 hover:text-white transition-colors px-2 py-1 rounded hover:bg-cyan-600">
+          ← Home
+        </a>
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-semibold px-4">
+          Kitebuddy
+        </h1>
+        <a href={`/${spotId}`} class="text-sm text-cyan-200 hover:text-white transition-colors px-2 py-1 rounded hover:bg-cyan-600">
+          ← Week
+        </a>
+      </div>
+      <p class="text-sm sm:text-base text-cyan-200">
+        {spotName} • {formattedDate}
+      </p>
+    </header>
+
+    <main class="w-full max-w-4xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4 lg:py-6">
+      {hours.length > 0 ? (
+        <div class="space-y-4">
+          <!-- Day Summary -->
+          <div class="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-cyan-100">
+            <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
+              Dagoverzicht
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+              <div>
+                <div class="text-2xl sm:text-3xl font-bold text-green-600">
+                  {Math.round(hours.reduce((sum, h) => sum + (h.speed || 0), 0) / hours.length)} kn
+                </div>
+                <div class="text-xs sm:text-sm text-gray-600">Gem. wind</div>
+              </div>
+              <div>
+                <div class="text-2xl sm:text-3xl font-bold text-blue-600">
+                  {Math.round(hours.reduce((sum, h) => sum + (h.temperature || 15), 0) / hours.length)}°C
+                </div>
+                <div class="text-xs sm:text-sm text-gray-600">Gem. temp</div>
+              </div>
+              <div>
+                <div class="text-2xl sm:text-3xl font-bold text-purple-600">
+                  {Math.round(hours.reduce((sum, h) => sum + (h.humidity || 50), 0) / hours.length)}%
+                </div>
+                <div class="text-xs sm:text-sm text-gray-600">Gem. luchtvochtigheid</div>
+              </div>
+              <div>
+                <div class="text-2xl sm:text-3xl font-bold text-orange-600">
+                  {Math.round(hours.reduce((sum, h) => sum + (h.rain || 0), 0) * 10) / 10}mm
+                </div>
+                <div class="text-xs sm:text-sm text-gray-600">Totale regen</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hourly Details -->
+          <div class="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-cyan-100">
+            <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
+              Uurlijkse details
+            </h2>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-gray-200">
+                    <th class="text-left py-2 px-1">Tijd</th>
+                    <th class="text-center py-2 px-1">Wind</th>
+                    <th class="text-center py-2 px-1">Richting</th>
+                    <th class="text-center py-2 px-1">Vlaag</th>
+                    <th class="text-center py-2 px-1">Temp</th>
+                    <th class="text-center py-2 px-1">Regen</th>
+                    <th class="text-center py-2 px-1">Bewolking</th>
+                    <th class="text-center py-2 px-1">Weer</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {hours.map((hour, index) => {
+                    const windSpeed = hour.speed || 0;
+                    const windColor = windSpeed < 13 ? 'text-cyan-300' : windSpeed < 16 ? 'text-blue-500' : 'text-green-500';
+                    const windDir = hour.dir || 0;
+                    const rotation = (windDir + 180) % 360;
+                    
+                    // Weather icon based on weather code
+                    let weatherIcon = '☀️';
+                    if (hour.weatherCode) {
+                      if (hour.weatherCode >= 61) weatherIcon = '🌧️';
+                      else if (hour.weatherCode >= 51) weatherIcon = '🌦️';
+                      else if (hour.weatherCode >= 3) weatherIcon = '☁️';
+                      else if (hour.weatherCode >= 1) weatherIcon = '🌤️';
+                    }
+                    
+                    return (
+                      <tr key={index} class="border-b border-gray-100 hover:bg-gray-50">
+                        <td class="py-2 px-1 font-medium">{hour.time}</td>
+                        <td class={`py-2 px-1 text-center font-semibold ${windColor}`}>
+                          {windSpeed} kn
+                        </td>
+                        <td class="py-2 px-1 text-center">
+                          <div class="inline-block transform" style={`transform: rotate(${rotation}deg)`}>
+                            ↑
+                          </div>
+                        </td>
+                        <td class="py-2 px-1 text-center text-gray-600">
+                          {hour.gust || 0} kn
+                        </td>
+                        <td class="py-2 px-1 text-center text-gray-600">
+                          {hour.temperature || 15}°C
+                        </td>
+                        <td class="py-2 px-1 text-center text-gray-600">
+                          {hour.rain || 0}mm
+                        </td>
+                        <td class="py-2 px-1 text-center text-gray-600">
+                          {hour.cloudCover || 0}%
+                        </td>
+                        <td class="py-2 px-1 text-center text-lg">
+                          {weatherIcon}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Kite Windows -->
+          <div class="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-cyan-100">
+            <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
+              Kite windows
+            </h2>
+            <div class="space-y-2">
+              {hours.filter(h => (h.speed || 0) >= 13 && (h.speed || 0) <= 30).length > 0 ? (
+                hours
+                  .filter(h => (h.speed || 0) >= 13 && (h.speed || 0) <= 30)
+                  .map((hour, index) => (
+                    <div key={index} class="flex items-center justify-between p-2 bg-green-50 rounded-lg border border-green-200">
+                      <span class="font-medium">{hour.time}</span>
+                      <span class="text-green-700 font-semibold">{hour.speed} kn</span>
+                    </div>
+                  ))
+              ) : (
+                <p class="text-gray-500 text-center py-4">Geen geschikte kite windows vandaag</p>
+              )}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div class="bg-white rounded-xl p-8 text-center shadow-sm border border-cyan-100">
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Geen data beschikbaar</h2>
+          <p class="text-gray-600">Er zijn geen voorspellingsgegevens beschikbaar voor deze dag.</p>
+          <a href={`/${spotId}`} class="inline-block mt-4 bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700 transition-colors">
+            Terug naar weekoverzicht
+          </a>
+        </div>
+      )}
+    </main>
+  </body>
+</html>

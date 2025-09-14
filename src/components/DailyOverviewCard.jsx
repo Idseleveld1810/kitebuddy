@@ -113,15 +113,15 @@ const DailyOverviewCard = ({
           </div>
         </div>
 
-        {/* Details Button - Fixed width (disabled for now) */}
-        <div className="w-16 sm:w-18 flex-shrink-0 flex justify-end">
-          <button
-            disabled
-            className="min-h-[44px] min-w-[44px] px-2 sm:px-3 py-2 bg-gray-100 rounded-lg text-xs sm:text-sm text-gray-400 cursor-not-allowed flex items-center justify-center"
-          >
-            Soon
-          </button>
-        </div>
+                    {/* Details Button - Fixed width */}
+                    <div className="w-16 sm:w-18 flex-shrink-0 flex justify-end">
+                      <a
+                        href={`/${spotId}/${date}`}
+                        className="min-h-[44px] min-w-[44px] px-2 sm:px-3 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg text-xs sm:text-sm text-white cursor-pointer flex items-center justify-center transition-colors"
+                      >
+                        Details
+                      </a>
+                    </div>
       </div>
     </div>
   );
