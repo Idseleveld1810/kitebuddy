@@ -2,12 +2,30 @@
 
 ## 🔄 Recente Wijzigingen (v2025.01.19)
 
+### **Netlify Deployment & SSR Migration**
+- **Deployed**: Live op Netlify (stupendous-begonia-2b4413.netlify.app)
+- **SSR**: Server-Side Rendering met Netlify Functions
+- **API Routes**: `/api/*` endpoints werken via Netlify Functions
+- **Environment**: Environment variables via Netlify dashboard
+- **Status**: ✅ Weekly overview werkt, ⚠️ Daily overview heeft issues
+
+### **Supabase Authentication Integration**
+- **Setup**: Supabase client voor login/signup/logout
+- **Environment**: PUBLIC_SUPABASE_URL en PUBLIC_SUPABASE_ANON_KEY
+- **Components**: Header.jsx, AuthModal.jsx voor auth UI
+- **Status**: ⚠️ Client initialization issues (TypeError: Cannot read properties of undefined)
+
 ### **Stormglass → Open-Meteo Migratie**
 - **Vervangen**: Stormglass API met Open-Meteo API
 - **Reden**: Open-Meteo geeft betere wind data (10.6 kn vs 8.4 kn) en is volledig gratis
 - **Voordelen**: Geen API key nodig, geen quota limieten, betere data kwaliteit
 - **Conversie**: Wind snelheden worden geconverteerd van km/h naar kn (×0.539957)
 - **Impact**: Realistischere wind voorspellingen, geen NaN waarden meer in weekoverzicht
+
+### **Wind Threshold Updates**
+- **KITEABLE_THRESHOLD**: 16 kn (was 15 kn)
+- **Green Band**: 19+ kn voor highlight
+- **Display**: "Geen wind" voor <16 kn, wind windows voor ≥16 kn
 
 ## 📋 **Overzicht van Pagina's**
 
@@ -16,6 +34,9 @@
 ┌─────────────────────────────────────┐
 │           Kitebuddy                 │
 ├─────────────────────────────────────┤
+│  🔐 Header (React Component)        │
+│     ├─ Login/Signup buttons         │
+│     └─ User status display          │
 │  🔍 SearchBar (React Component)     │
 │  🗺️  SpotMap (React Component)      │
 │     └─ Markers voor alle spots      │
@@ -31,10 +52,12 @@
 │  📅 WeeklyOverview (React Component) │
 │     ├─ DailyOverviewCard × 7        │
 │     │   ├─ Wind Speed & Direction   │
+│     │   ├─ Weather Icon & Temp      │
 │     │   ├─ Kite Window Display      │
 │     │   └─ "Details" Button         │
 │     │       └─ Click → /{spotId}/{date} │
 │     └─ Data Source: Open-Meteo API  │
+│     └─ SSR: Server-side fetch       │
 └─────────────────────────────────────┘
 ```
 
@@ -48,13 +71,39 @@
 │  📋 WeatherTable (React Component)  │
 │     ├─ Wind Speed & Gust            │
 │     ├─ Wind Direction               │
-│     ├─ Weather Icon                 │
-│     ├─ Wave Height (1 decimaal)     │
+│     ├─ Weather Icon & Temperature   │
+│     ├─ Precipitation & Cloud Cover  │
 │     ├─ Wave Height (niet beschikbaar)│
 │     ├─ Wave Period (niet beschikbaar)│
 │     └─ Current Speed (vandaag + RWS)│
 │  🔄 "Terug naar overzicht" Button   │
 │     └─ Click → /{spotId}            │
+└─────────────────────────────────────┘
+```
+
+### **4. Authentication Pages**
+```
+┌─────────────────────────────────────┐
+│  🔐 Auth Modal (React Component)    │
+├─────────────────────────────────────┤
+│     ├─ Login Form                   │
+│     ├─ Signup Form                  │
+│     └─ Password Reset               │
+│  📧 /auth/callback (Astro Page)     │
+│     └─ Email verification handler   │
+└─────────────────────────────────────┘
+```
+
+### **5. Debug Pages**
+```
+┌─────────────────────────────────────┐
+│  🔍 /debug (Environment Check)      │
+├─────────────────────────────────────┤
+│     ├─ Server-side env vars         │
+│     ├─ Client-side env vars         │
+│     └─ Supabase client status       │
+│  🔍 /debug-env (Environment Debug)  │
+│     └─ Detailed env var inspection  │
 └─────────────────────────────────────┘
 ```
 
@@ -94,9 +143,11 @@ GET /api/forecast?spotId={spotId}
 1. Check cache first
 2. If cache miss → Open-Meteo API call
 3. Convert km/h to knots (×0.539957)
-4. Group by day of week
-5. Filter 06:00-22:00 hours
-6. Cache result for 6 hours
+4. Add temperature, humidity, precipitation, cloud cover, weather codes
+5. Group by day of week
+6. Filter 06:00-22:00 hours
+7. Cache result for 6 hours
+8. SSR: Server-side fetch in Astro pages
 ```
 
 ### **API 2: `/api/day`**
@@ -110,19 +161,34 @@ GET /api/day?spotId={spotId}&date={YYYY-MM-DD}
 📈 Response:
 {
   data: HourDetail[],
-  source: "stormglass" | "cache" | "file",
+  source: "openmeteo" | "cache" | "file",
   lastUpdated: string
 }
 
 🔄 Data Flow:
 1. Check cache first
-2. If cache miss → Stormglass API call
+2. If cache miss → Open-Meteo API call
 3. If Dutch spot → Enrich with RWS data (only today)
 4. Filter 06:00-22:00 hours
 5. Cache result for 2-6 hours
 ```
 
-### **API 3: `/api/update` (Admin)**
+### **API 3: `/api/health`**
+```typescript
+GET /api/health
+
+📈 Response:
+{
+  ok: true
+}
+
+🔄 Purpose:
+- Health check for Netlify Functions
+- Verify SSR is working
+- Debug deployment issues
+```
+
+### **API 4: `/api/update` (Admin)**
 ```typescript
 POST /api/update
 Content-Type: application/json
@@ -289,14 +355,16 @@ interface HourDetail {
   windSpeed: number;               // Wind speed in knots
   windGust: number;                // Wind gust in knots
   windDir: number;                 // Wind direction in degrees
+  temperature: number;             // Temperature in °C
+  humidity: number;                // Humidity percentage
   precipitation: number;           // Precipitation in mm
   cloudCover: number;              // Cloud cover percentage
-  waveHeight: number;              // Wave height in meters
+  weatherCode: number;             // WMO weather code
+  waveHeight?: number;             // Wave height in meters (niet beschikbaar)
   wavePeriod?: number;             // Wave period in seconds (niet beschikbaar)
   waveDirection?: number;          // Wave direction in degrees (niet beschikbaar)
   currentSpeed?: number;           // Current speed in knots (RWS alleen)
   currentDirection?: number;       // Current direction in degrees (RWS alleen)
-  oceanTemperature?: number;       // Water temperature in °C (niet beschikbaar)
   sourceMeta?: {                   // Data source information
     provider: string;
     enrichedWithRWS?: boolean;
@@ -374,21 +442,39 @@ interface HourDetail {
 
 ### **Environment Variables**
 ```bash
+# Open-Meteo (geen API key nodig)
 MARINE_PROVIDER=openmeteo
-# Geen API key nodig voor Open-Meteo
 RWS_ENRICH=true
+
+# Supabase Authentication
+PUBLIC_SUPABASE_URL=https://gminwuoueaymbpjbwieg.supabase.co
+PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 ### **Astro Configuration**
 ```javascript
 // astro.config.mjs
+import { defineConfig } from 'astro/config';
+import netlify from '@astrojs/netlify/functions';
+import react from '@astrojs/react';
+import tailwind from '@astrojs/tailwind';
+
 export default defineConfig({
-  output: 'server',           // Enable API routes
-  adapter: node({
-    mode: 'standalone'
-  }),
+  output: 'server',           // Enable SSR and API routes
+  adapter: netlify(),         // Netlify Functions adapter
   integrations: [react(), tailwind()]
 });
+```
+
+### **Netlify Configuration**
+```toml
+# netlify.toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
 ```
 
 ---
@@ -417,19 +503,56 @@ export default defineConfig({
 
 ### **Production Setup**
 ```typescript
-🌐 Server Requirements:
-├─ Node.js 18+
-├─ Memory: 512MB+ (for caching)
+🌐 Netlify Deployment:
+├─ Node.js 20 (via netlify.toml)
+├─ Memory: 1024MB (Netlify Functions)
 ├─ Storage: Minimal (file fallbacks)
-└─ Network: Stable internet (API calls)
+├─ Network: Stable internet (API calls)
+└─ URL: stupendous-begonia-2b4413.netlify.app
 
 🔒 Security:
-├─ API keys in environment variables
-├─ Rate limiting on API endpoints
+├─ Environment variables in Netlify dashboard
+├─ Supabase authentication
 ├─ Input validation
 └─ Error handling
+
+⚠️ Current Issues:
+├─ Supabase client initialization (TypeError)
+├─ Daily overview cards blank
+├─ Environment variables loading
+└─ Client-side hydration issues
 ```
 
 ---
 
-*Laatst bijgewerkt: 2025-01-19*
+---
+
+## 🔧 **Current Status & Known Issues**
+
+### **✅ Working Components**
+- **Weekly Overview**: Displays forecast cards with wind data
+- **API Endpoints**: `/api/forecast` and `/api/health` working
+- **Open-Meteo Integration**: Real weather data loading
+- **Netlify Deployment**: Site live and accessible
+- **SSR**: Server-side rendering functional
+
+### **⚠️ Known Issues**
+- **Supabase Client**: `TypeError: Cannot read properties of undefined (reading 'create')`
+- **Daily Overview Cards**: Blank/empty display despite data being available
+- **Environment Variables**: Client-side loading issues
+- **Authentication**: Login/signup not functional due to Supabase client issues
+
+### **🔍 Debug Tools Available**
+- `/debug-env`: Environment variable inspection
+- `/debug`: Supabase client status check
+- Console logging in components for troubleshooting
+
+### **📋 Next Steps**
+1. Fix Supabase client initialization
+2. Resolve daily overview card rendering
+3. Test authentication functionality
+4. Remove debug components once issues resolved
+
+---
+
+*Laatst bijgewerkt: 2025-01-19 - Netlify Deployment & SSR Migration*

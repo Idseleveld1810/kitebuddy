@@ -1,5 +1,4 @@
 import React from 'react';
-import { getDailyWeatherSummary } from '../utils/weatherIcon.js';
 
 const directionArrow = (degrees) => {
   const rotation = (degrees + 180) % 360;
@@ -33,18 +32,33 @@ const DailyOverviewCard = ({
     return 'text-green-500';
   };
 
-  // Bepaal weerbeeld
-  const weatherSummary = getDailyWeatherSummary(hours);
+  // Simple weather summary (no complex logic for now)
+  const getWeatherSummary = (hours) => {
+    if (!hours || hours.length === 0) {
+      return { icon: '❓', temperature: '?', color: 'text-gray-400' };
+    }
+    
+    // Get average temperature
+    const avgTemp = Math.round(
+      hours.reduce((sum, h) => sum + (h.temperature || 15), 0) / hours.length
+    );
+    
+    // Simple weather icon based on first hour's weather code
+    const firstHour = hours[0];
+    let icon = '☀️';
+    let color = 'text-yellow-500';
+    
+    if (firstHour.weatherCode) {
+      if (firstHour.weatherCode >= 61) icon = '🌧️', color = 'text-blue-600';
+      else if (firstHour.weatherCode >= 51) icon = '🌦️', color = 'text-blue-500';
+      else if (firstHour.weatherCode >= 3) icon = '☁️', color = 'text-gray-600';
+      else if (firstHour.weatherCode >= 1) icon = '🌤️', color = 'text-yellow-600';
+    }
+    
+    return { icon, temperature: avgTemp, color };
+  };
   
-  // Debug: toon data structuur in console (altijd voor nu)
-  console.log(`🌤️ DailyOverviewCard voor ${day}:`, {
-    hoursCount: hours.length,
-    sampleHours: hours.slice(0, 2),
-    weatherSummary,
-    hasCloudCover: hours.some(h => h.cloudCover !== undefined),
-    hasTemperature: hours.some(h => h.temperature !== undefined),
-    hasWeatherCode: hours.some(h => h.weatherCode !== undefined)
-  });
+  const weatherSummary = getWeatherSummary(hours);
 
   // Handle multiple wind windows display
   const renderWindWindow = () => {
@@ -99,14 +113,14 @@ const DailyOverviewCard = ({
           </div>
         </div>
 
-        {/* Details Button - Fixed width */}
+        {/* Details Button - Fixed width (disabled for now) */}
         <div className="w-16 sm:w-18 flex-shrink-0 flex justify-end">
-          <a
-            href={`/${spotId}/${date}`}
-            className="min-h-[44px] min-w-[44px] px-2 sm:px-3 py-2 bg-blue-100 rounded-lg text-xs sm:text-sm text-blue-600 hover:bg-blue-200 transition-colors duration-200 flex items-center justify-center"
+          <button
+            disabled
+            className="min-h-[44px] min-w-[44px] px-2 sm:px-3 py-2 bg-gray-100 rounded-lg text-xs sm:text-sm text-gray-400 cursor-not-allowed flex items-center justify-center"
           >
-            Details
-          </a>
+            Soon
+          </button>
         </div>
       </div>
     </div>

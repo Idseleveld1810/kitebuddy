@@ -1,6 +1,56 @@
 import type { APIRoute } from 'astro';
-import { OpenMeteoProvider } from '../../server/providers/openmeteo';
 import spots from '../../data/spots_with_wind_top50.json';
+
+// Simple Open-Meteo API client
+class OpenMeteoProvider {
+  private baseUrl = 'https://api.open-meteo.com/v1';
+
+  async fetchMarineData(lat: number, lng: number, startDate: string, endDate: string) {
+    const url = `${this.baseUrl}/forecast?` + new URLSearchParams({
+      latitude: lat.toString(),
+      longitude: lng.toString(),
+      hourly: 'wind_speed_10m,wind_gusts_10m,wind_direction_10m,temperature_2m,relative_humidity_2m,precipitation,cloud_cover,weather_code',
+      start_date: startDate.split('T')[0],
+      end_date: endDate.split('T')[0]
+    });
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Open-Meteo API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return this.normalizeData(data);
+  }
+
+  private normalizeData(data: any) {
+    const hours = [];
+    
+    for (let i = 0; i < data.hourly.time.length; i++) {
+      const hour = {
+        time: data.hourly.time[i],
+        windSpeed: Math.round((data.hourly.wind_speed_10m[i] * 0.539957) * 10) / 10, // km/h to knots
+        windGust: Math.round((data.hourly.wind_gusts_10m[i] * 0.539957) * 10) / 10, // km/h to knots
+        windDir: Math.round(data.hourly.wind_direction_10m[i]),
+        temperature: Math.round(data.hourly.temperature_2m[i] * 10) / 10,
+        humidity: Math.round(data.hourly.relative_humidity_2m[i]),
+        precipitation: Math.round(data.hourly.precipitation[i] * 10) / 10,
+        cloudCover: Math.round(data.hourly.cloud_cover[i]),
+        weatherCode: data.hourly.weather_code[i],
+        waveHeight: null,
+        waveDirection: null,
+        currentSpeed: null,
+        currentDirection: null,
+        sourceMeta: {
+          provider: 'openmeteo'
+        }
+      };
+      hours.push(hour);
+    }
+    
+    return hours;
+  }
+}
 
 
 export const GET: APIRoute = async ({ url }) => {
@@ -28,13 +78,8 @@ export const GET: APIRoute = async ({ url }) => {
       });
     }
 
-    // Allow Open-Meteo provider to work without requiring Stormglass
-    const marineProvider = import.meta.env.MARINE_PROVIDER;
-    console.log('Marine provider setting:', marineProvider);
-
-    // Get API key
-      // Initialize Open-Meteo provider
-  const provider = new OpenMeteoProvider();
+    // Initialize Open-Meteo provider
+    const provider = new OpenMeteoProvider();
 
     // Calculate time range for the next 7 days
     const startDate = new Date();

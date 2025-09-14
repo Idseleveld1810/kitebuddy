@@ -14,7 +14,6 @@ import Header from '../components/Header.jsx';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body class="bg-amber-50 font-sans text-gray-800 min-h-screen">
-    <h1 style="font-family:system-ui;padding:16px">Kitebuddy</h1>
     <Header client:only="react" />
 
     <main class="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4 lg:py-6 space-y-4 sm:space-y-6">
@@ -23,21 +22,5 @@ import Header from '../components/Header.jsx';
       </div>
       <SpotMap client:only="react" />
     </main>
-
-    <!-- Error catcher -->
-    <script>
-      window.addEventListener('error', e => {
-        const box = document.createElement('pre');
-        box.style.cssText = 'position:fixed;left:0;bottom:0;max-height:40vh;width:100%;background:#200;color:#fff;padding:12px;overflow:auto;z-index:99999;font:12px/1.4 monospace';
-        box.textContent = 'Error: ' + (e.error?.stack || e.message);
-        document.body.appendChild(box);
-      });
-      window.addEventListener('unhandledrejection', e => {
-        const box = document.createElement('pre');
-        box.style.cssText = 'position:fixed;left:0;bottom:0;max-height:40vh;width:100%;background:#220;color:#fff;padding:12px;overflow:auto;z-index:99999;font:12px/1.4 monospace';
-        box.textContent = 'Unhandled promise: ' + (e.reason?.stack || e.reason);
-        document.body.appendChild(box);
-      });
-    </script>
   </body>
 </html>
