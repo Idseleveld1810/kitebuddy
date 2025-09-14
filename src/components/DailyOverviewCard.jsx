@@ -119,7 +119,7 @@ const DailyOverviewCard = ({
                         href={`/${spotId}/${date}`}
                         className="min-h-[44px] min-w-[44px] px-2 sm:px-3 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg text-xs sm:text-sm text-white cursor-pointer flex items-center justify-center transition-colors"
                       >
-                        Details
+                        DETAILS
                       </a>
                     </div>
       </div>
