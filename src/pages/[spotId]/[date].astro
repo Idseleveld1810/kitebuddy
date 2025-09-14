@@ -34,6 +34,52 @@ const dayName = dayNames[dateObj.getDay()];
 // Get hours for this specific day
 const hours = forecastData[dayName] || [];
 
+// Calculate chart data
+const maxWind = Math.max(...hours.map(h => Math.round(h.speed || 0)));
+const maxGust = Math.max(...hours.map(h => Math.round(h.gust || h.speed || 0)));
+const maxValue = Math.max(maxWind, maxGust);
+const scale = Math.ceil(maxValue / 5) * 5; // Round up to nearest 5
+const yScale = 250 / scale; // Use 250px for the chart area
+
+// Generate smooth curves using path with cubic bezier
+const windPoints = hours.map((hour, index) => {
+  const x = 60 + (index * (740 / (hours.length - 1)));
+  const windSpeed = Math.round(hour.speed || 0);
+  const y = 270 - (windSpeed * yScale);
+  return { x, y };
+});
+
+const gustPoints = hours.map((hour, index) => {
+  const x = 60 + (index * (740 / (hours.length - 1)));
+  const windGust = Math.round(hour.gust || hour.speed || 0);
+  const y = 270 - (windGust * yScale);
+  return { x, y };
+});
+
+// Create smooth path for wind speed
+let windPath = `M ${windPoints[0].x} ${windPoints[0].y}`;
+for (let i = 1; i < windPoints.length; i++) {
+  const prev = windPoints[i - 1];
+  const curr = windPoints[i];
+  const cp1x = prev.x + (curr.x - prev.x) / 3;
+  const cp1y = prev.y;
+  const cp2x = curr.x - (curr.x - prev.x) / 3;
+  const cp2y = curr.y;
+  windPath += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${curr.x} ${curr.y}`;
+}
+
+// Create smooth path for wind gusts
+let gustPath = `M ${gustPoints[0].x} ${gustPoints[0].y}`;
+for (let i = 1; i < gustPoints.length; i++) {
+  const prev = gustPoints[i - 1];
+  const curr = gustPoints[i];
+  const cp1x = prev.x + (curr.x - prev.x) / 3;
+  const cp1y = prev.y;
+  const cp2x = curr.x - (curr.x - prev.x) / 3;
+  const cp2y = curr.y;
+  gustPath += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${curr.x} ${curr.y}`;
+}
+
 // Format date for display
 const formattedDate = dateObj.toLocaleDateString('nl-NL', {
   weekday: 'long',
@@ -85,38 +131,28 @@ const formattedDate = dateObj.toLocaleDateString('nl-NL', {
                 </defs>
                 <rect width="100%" height="100%" fill="url(#grid)" />
                 
-                <!-- Y-axis labels -->
-                <text x="20" y="20" class="text-xs fill-gray-600">30 kn</text>
-                <text x="20" y="70" class="text-xs fill-gray-600">20 kn</text>
-                <text x="20" y="120" class="text-xs fill-gray-600">15 kn</text>
-                <text x="20" y="170" class="text-xs fill-gray-600">10 kn</text>
-                <text x="20" y="220" class="text-xs fill-gray-600">5 kn</text>
+                <!-- Y-axis labels (dynamic scale) -->
+                <text x="20" y="20" class="text-xs fill-gray-600">{scale} kn</text>
+                <text x="20" y="70" class="text-xs fill-gray-600">{Math.round(scale * 0.75)} kn</text>
+                <text x="20" y="120" class="text-xs fill-gray-600">{Math.round(scale * 0.5)} kn</text>
+                <text x="20" y="170" class="text-xs fill-gray-600">{Math.round(scale * 0.25)} kn</text>
+                <text x="20" y="220" class="text-xs fill-gray-600">0 kn</text>
                 
-                <!-- Wind speed line -->
-                <polyline
+                <!-- Wind speed smooth curve -->
+                <path
                   fill="none"
                   stroke="#0891b2"
                   stroke-width="3"
-                  points={hours.map((hour, index) => {
-                    const x = 60 + (index * (740 / (hours.length - 1)));
-                    const windSpeed = Math.round(hour.speed || 0);
-                    const y = 280 - (windSpeed * 8); // Scale: 30kn = 40px from top
-                    return `${x},${y}`;
-                  }).join(' ')}
+                  d={windPath}
                 />
                 
-                <!-- Wind gusts line -->
-                <polyline
+                <!-- Wind gusts smooth curve -->
+                <path
                   fill="none"
                   stroke="#dc2626"
                   stroke-width="2"
                   stroke-dasharray="5,5"
-                  points={hours.map((hour, index) => {
-                    const x = 60 + (index * (740 / (hours.length - 1)));
-                    const windGust = Math.round(hour.gust || hour.speed || 0);
-                    const y = 280 - (windGust * 8);
-                    return `${x},${y}`;
-                  }).join(' ')}
+                  d={gustPath}
                 />
                 
                 <!-- Time labels -->
