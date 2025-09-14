@@ -87,8 +87,8 @@ const formattedDate = dateObj.toLocaleDateString('nl-NL', {
                 
                 <!-- Calculate dynamic scale based on max values -->
                 {(() => {
-                  const maxWind = Math.max(...hours.map(h => h.speed || 0));
-                  const maxGust = Math.max(...hours.map(h => h.gust || h.speed || 0));
+                  const maxWind = Math.max(...hours.map(h => Math.round(h.speed || 0)));
+                  const maxGust = Math.max(...hours.map(h => Math.round(h.gust || h.speed || 0)));
                   const maxValue = Math.max(maxWind, maxGust);
                   const scale = Math.ceil(maxValue / 10) * 10; // Round up to nearest 10
                   const yScale = 250 / scale; // Use 250px for the chart area
@@ -96,7 +96,7 @@ const formattedDate = dateObj.toLocaleDateString('nl-NL', {
                   // Generate wind speed path
                   const windPath = hours.map((hour, index) => {
                     const x = 60 + (index * (740 / (hours.length - 1)));
-                    const windSpeed = hour.speed || 0;
+                    const windSpeed = Math.round(hour.speed || 0);
                     const y = 270 - (windSpeed * yScale);
                     return index === 0 ? `M ${x} ${y}` : `L ${x} ${y}`;
                   }).join(' ');
@@ -104,7 +104,7 @@ const formattedDate = dateObj.toLocaleDateString('nl-NL', {
                   // Generate wind gusts path
                   const gustPath = hours.map((hour, index) => {
                     const x = 60 + (index * (740 / (hours.length - 1)));
-                    const windGust = hour.gust || hour.speed || 0;
+                    const windGust = Math.round(hour.gust || hour.speed || 0);
                     const y = 270 - (windGust * yScale);
                     return index === 0 ? `M ${x} ${y}` : `L ${x} ${y}`;
                   }).join(' ');
@@ -178,7 +178,7 @@ const formattedDate = dateObj.toLocaleDateString('nl-NL', {
                 </thead>
                 <tbody>
                   {hours.map((hour, index) => {
-                    const windSpeed = hour.speed || 0;
+                    const windSpeed = Math.round(hour.speed || 0);
                     const windColor = windSpeed < 13 ? 'text-cyan-300' : windSpeed < 16 ? 'text-blue-500' : 'text-green-500';
                     const windDir = hour.dir || 0;
                     const rotation = (windDir + 180) % 360;
@@ -190,7 +190,7 @@ const formattedDate = dateObj.toLocaleDateString('nl-NL', {
                           {windSpeed} kn
                         </td>
                         <td class="py-2 px-1 text-center text-gray-600">
-                          {hour.gust || 0} kn
+                          {Math.round(hour.gust || 0)} kn
                         </td>
                         <td class="py-2 px-1 text-center">
                           <div class="inline-block transform" style={`transform: rotate(${rotation}deg)`}>
