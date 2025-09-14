@@ -35,10 +35,10 @@ const dayName = dayNames[dateObj.getDay()];
 const hours = forecastData[dayName] || [];
 
 // Calculate chart data
-const maxWind = Math.max(...hours.map(h => Math.round(h.speed || 0)));
-const maxGust = Math.max(...hours.map(h => Math.round(h.gust || h.speed || 0)));
+const maxWind = hours.length > 0 ? Math.max(...hours.map(h => Math.round(h.speed || 0))) : 0;
+const maxGust = hours.length > 0 ? Math.max(...hours.map(h => Math.round(h.gust || h.speed || 0))) : 0;
 const maxValue = Math.max(maxWind, maxGust);
-const scale = Math.ceil(maxValue / 5) * 5; // Round up to nearest 5
+const scale = maxValue > 0 ? Math.ceil(maxValue / 5) * 5 : 30; // Round up to nearest 5, default to 30
 const yScale = 250 / scale; // Use 250px for the chart area
 
 // Generate smooth curves using path with cubic bezier
@@ -158,7 +158,11 @@ const formattedDate = dateObj.toLocaleDateString('nl-NL', {
                 <!-- Time labels -->
                 {hours.map((hour, index) => {
                   // Show every 2nd hour, but always show the last hour (22:00)
-                  if (index % 2 === 0 || index === hours.length - 1) {
+                  const isEvenHour = index % 2 === 0;
+                  const isLastHour = index === hours.length - 1;
+                  const is22Hour = hour.time === '22:00';
+                  
+                  if (isEvenHour || isLastHour || is22Hour) {
                     const x = 60 + (index * (740 / (hours.length - 1)));
                     return (
                       <text x={x} y="295" class="text-xs fill-gray-600" text-anchor="middle">
