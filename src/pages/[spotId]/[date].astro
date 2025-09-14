@@ -5,27 +5,89 @@ import spots from "../../data/spots_with_wind_top50.json";
 
 const { spotId, date } = Astro.params;
 
+// Find the spot
+const spot = spots.find(s => s.spotId === spotId);
+
 // Get forecast data for the specific date
 let forecastData = {};
 let source = 'openmeteo';
 
 try {
-  const baseUrl = Astro.url.origin;
-  const apiUrl = `${baseUrl}/api/forecast?spotId=${spotId}`;
-  const response = await fetch(apiUrl);
+  if (spot) {
+    // Direct API call to Open-Meteo (same logic as in forecast.ts)
+    const startDate = new Date();
+    startDate.setHours(0, 0, 0, 0);
+    
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 7);
+    endDate.setHours(23, 59, 59, 999);
 
-  if (response.ok) {
-    const apiData = await response.json();
-    forecastData = apiData.forecast || {};
-    source = apiData.source || 'openmeteo';
+    const start = startDate.toISOString();
+    const end = endDate.toISOString();
+
+    const url = `https://api.open-meteo.com/v1/forecast?` + new URLSearchParams({
+      latitude: spot.latitude.toString(),
+      longitude: spot.longitude.toString(),
+      hourly: 'wind_speed_10m,wind_gusts_10m,wind_direction_10m,temperature_2m,relative_humidity_2m,precipitation,cloud_cover,weather_code',
+      start_date: start.split('T')[0],
+      end_date: end.split('T')[0]
+    });
+
+    const response = await fetch(url);
+    if (response.ok) {
+      const data = await response.json();
+      
+      // Process the data (same logic as in forecast.ts)
+      const weekdays = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
+      const processedData: { [key: string]: any[] } = {};
+
+      weekdays.forEach(day => {
+        processedData[day] = [];
+      });
+
+      // Filter and group data by day
+      for (let i = 0; i < data.hourly.time.length; i++) {
+        const hourTime = new Date(data.hourly.time[i]);
+        const hourOfDay = hourTime.getHours();
+        
+        // Only include kitesurfing hours (6:00-22:00)
+        if (hourOfDay >= 6 && hourOfDay <= 22) {
+          const dayOfWeek = weekdays[hourTime.getDay()];
+          
+          // Format time for display and map to expected format
+          const formattedHour = {
+            time: hourTime.toLocaleTimeString('en-GB', {
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false
+            }),
+            speed: Math.round((data.hourly.wind_speed_10m[i] * 0.539957) * 10) / 10, // km/h to knots
+            gust: Math.round((data.hourly.wind_gusts_10m[i] * 0.539957) * 10) / 10, // km/h to knots
+            dir: Math.round(data.hourly.wind_direction_10m[i]),
+            temperature: Math.round(data.hourly.temperature_2m[i] * 10) / 10,
+            humidity: Math.round(data.hourly.relative_humidity_2m[i]),
+            rain: Math.round(data.hourly.precipitation[i] * 10) / 10,
+            cloudCover: Math.round(data.hourly.cloud_cover[i]),
+            weatherCode: data.hourly.weather_code[i],
+            waveHeight: null,
+            sourceMeta: {
+              provider: 'openmeteo'
+            }
+          };
+
+          processedData[dayOfWeek].push(formattedHour);
+        }
+      }
+      
+      forecastData = processedData;
+    }
   }
 } catch (error) {
   console.error(`Failed to load data for ${spotId}:`, error);
   forecastData = {};
 }
 
-// Find spot details
-const spot = spots.find(s => s.spotId === spotId);
+// Get spot name
 const spotName = spot ? spot.name : spotId;
 
 // Convert date to day name for data lookup
