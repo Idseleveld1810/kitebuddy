@@ -1,6 +1,5 @@
-import type { APIRoute } from 'astro';
-
-export const GET: APIRoute = () =>
-  new Response(JSON.stringify({ ok: true }), {
-    headers: { 'content-type': 'application/json' },
+export async function GET() {
+  return new Response(JSON.stringify({ ok: true, time: new Date().toISOString() }), {
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
   });
+}

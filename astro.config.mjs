@@ -1,11 +1,11 @@
-// astro.config.mjs
-import { defineConfig } from 'astro/config';
-import netlify from '@astrojs/netlify/functions';
-import react from '@astrojs/react';
-import tailwind from '@astrojs/tailwind';
+import { defineConfig } from 'astro/config'
+import netlify from '@astrojs/netlify/functions'
+import react from '@astrojs/react'
+import tailwind from '@astrojs/tailwind'
 
 export default defineConfig({
-  output: 'server',
-  adapter: netlify(),
+  output: 'server',            // <— runtime SSR
+  adapter: netlify(),          // <— Netlify Functions
+  trailingSlash: 'never',
   integrations: [react(), tailwind()],
-});
+})
